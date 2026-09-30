@@ -225,6 +225,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .section { padding-top: 100px; }
   .section-heading { align-items: start; flex-direction: column; gap: 24px; margin-bottom: 34px; }
   .section-heading h2 { margin-top: 18px; }
+  .work-card-media { aspect-ratio: 1 / 1; }
   .work-card-caption { margin-top: 16px; padding-top: 13px; }
   .card-arrow { display: none; }
   .projects-section { padding-top: 48px; padding-bottom: 100px; }
