@@ -12,6 +12,7 @@ const copy = messages[locale];
 const categoryCopy = copy.categories[category.slug];
 const url = (path: string) => localizedPath(locale, path);
 const images = await getGalleryImages(category.slug);
+const upcomingImages = category.slug === 'illustration' ? await getGalleryImages('illustration/coming-soon') : [];
 ---
 
 <BaseLayout locale={locale} title={`${categoryCopy.title} — CastorRise`} description={`${categoryCopy.description} — CastorRise.`}>
@@ -22,6 +23,25 @@ const images = await getGalleryImages(category.slug);
       <h1 id="page-title">{categoryCopy.title}<span class="heading-period">.</span></h1>
       <p>{categoryCopy.description}</p>
     </section>
+    {category.slug === 'illustration' && (
+      <section class="upcoming-section" aria-labelledby="coming-soon-title">
+        <div class="collection-heading">
+          <h2 id="coming-soon-title">Coming Soon<span class="heading-period">.</span></h2>
+          <p>{copy.comingSoonDescription}</p>
+        </div>
+        <div class="gallery upcoming-grid" data-category="illustration">
+          {upcomingImages.length > 0 ? upcomingImages.map((image, index) => (
+            <figure class="gallery-item">
+              <img src={image.src} width={image.width} height={image.height} alt={`${copy.upcomingWork} ${index + 1}`} loading="lazy" decoding="async" />
+              <figcaption><span>Coming Soon</span><span>{image.name}</span></figcaption>
+            </figure>
+          )) : (
+            <div class="upcoming-placeholder"><span>Coming Soon</span><p>{copy.upcomingWork}</p></div>
+          )}
+        </div>
+      </section>
+    )}
+    {category.slug === 'illustration' && <div class="collection-heading"><h2>{copy.publishedWorks}</h2></div>}
     {images.length > 0 ? (
       <div class="gallery" data-category={category.slug} aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
         {images.map((image, index) => (

@@ -163,6 +163,15 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .gallery-item { break-inside: avoid; margin: 0 0 clamp(45px, 6vw, 90px); }
 .gallery-item img { width: 100%; height: auto; background: var(--surface); }
 .gallery[data-category="illustration"] .gallery-item img { aspect-ratio: 1 / 1; object-fit: contain; }
+.collection-heading { margin-bottom: 32px; }
+.collection-heading h2 { margin: 0; font-size: clamp(26px, 3vw, 40px); font-weight: 400; letter-spacing: .015em; line-height: 1.3; }
+.collection-heading p { margin: 18px 0 0; color: var(--muted); font-size: 14px; line-height: 1.85; }
+.upcoming-section { margin-bottom: clamp(72px, 9vw, 128px); }
+.upcoming-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 4vw, 64px); }
+.upcoming-grid .gallery-item { margin: 0; min-width: 0; }
+.upcoming-placeholder { aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px; background: var(--surface); text-align: center; }
+.upcoming-placeholder > span { font-size: clamp(24px, 3vw, 40px); letter-spacing: .025em; font-weight: 400; }
+.upcoming-placeholder p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
 .gallery-item figcaption { display: flex; justify-content: space-between; gap: 20px; margin-top: 13px; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .gallery-empty { min-height: 440px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--surface); text-align: center; }
 .gallery-empty-mark { display: grid; place-items: center; width: 110px; height: 110px; border: 1px solid var(--line); border-radius: 50%; font-family: inherit; font-size: 50px; font-style: normal; color: var(--muted); }
@@ -242,6 +251,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .breadcrumb { margin-bottom: 52px; }
   .gallery-page .page-intro { padding-top: 48px; }
   .gallery { columns: 1; }
+  .upcoming-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .gallery-item { margin-bottom: 48px; }
   .gallery-empty { min-height: 360px; }
   .next-collection { margin-top: 70px; }

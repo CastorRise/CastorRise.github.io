@@ -7,6 +7,7 @@
 | 首页滚动背景 | `public/images/hero/` | `hero-01.jpg`、`hero-02.jpg`、`hero-03.jpg`… |
 | 摄影作品 | `public/images/photography/` | `photo-01.jpg`、`photo-02.jpg`… |
 | 插画作品 | `public/images/illustration/` | `illustration-01.jpg`、`illustration-02.jpg`… |
+| 插画 Coming Soon 预告 | `public/images/illustration/coming-soon/` | `coming-soon-01.jpg`、`coming-soon-02.jpg`… |
 | 气象作品 | `public/images/weather/` | `weather-01.jpg`、`weather-02.jpg`… |
 | 项目封面 | `public/images/projects/` | 当前项目使用 `nimby.jpg` |
 
@@ -20,7 +21,13 @@
 
 ## 作品与封面
 
-摄影、插画、气象目录中的所有支持格式图片都会自动出现在各自的作品页，并按文件名排序，保留原始比例。`photo-01`、`illustration-01`、`weather-01` 分别作为首页和作品总览的封面；对应的 `.jpg`、`.jpeg`、`.webp`、`.avif`、`.png` 都支持。
+摄影、插画、气象目录中的所有支持格式图片都会自动出现在各自的作品页，并按文件名排序。摄影、气象作品保留原始比例；插画作品放在 1:1 展示框中，完整显示原图。`photo-01`、`illustration-01`、`weather-01` 分别作为首页和作品总览的封面；对应的 `.jpg`、`.jpeg`、`.webp`、`.avif`、`.png` 都支持。手机封面均为 1:1；平板与大屏的插画封面为 1:1，摄影、气象封面为 16:9。
+
+## 插画 Coming Soon
+
+即将发布的插画放在 `illustration/coming-soon/` 中，构建后会自动出现在插画页顶部的 Coming Soon 区域，并按文件名排序。支持 JPG、JPEG、PNG、WebP 和 AVIF，展示框为 1:1，原图完整显示。没有预告图片时会显示方形占位提示。
+
+正式发布时，把图片从 `illustration/coming-soon/` 移到 `illustration/`，重新提交并推送。图片就会从预告区域移到已发布作品区域。所有语言版本共用图片；图片只有在提交、推送并完成网站构建后才会在线上显示。
 
 作品页与封面也会生成宽度最多 2400 px 的 WebP 浏览版本，保留原始比例与目录中的原文件。HEIC 图片需要先转换为 JPG、PNG 或 WebP；本次两张 HEIC 已转换为同名 JPG，原始 HEIC 仍保留，不会重复显示在作品页。
 

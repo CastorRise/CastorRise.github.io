@@ -5,7 +5,7 @@ import { join } from 'node:path';
 
 const imageRoot = join(process.cwd(), 'public', 'images');
 const extensions = ['jpg', 'jpeg', 'webp', 'avif', 'png'];
-const imageSources = import.meta.glob<ImageMetadata>('/public/images/*/*.{jpg,jpeg,webp,avif,png,JPG,JPEG,WEBP,AVIF,PNG}', { eager: true, import: 'default' });
+const imageSources = import.meta.glob<ImageMetadata>('/public/images/**/*.{jpg,jpeg,webp,avif,png,JPG,JPEG,WEBP,AVIF,PNG}', { eager: true, import: 'default' });
 
 export interface LocalImage {
   src: string;

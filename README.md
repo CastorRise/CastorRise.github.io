@@ -23,6 +23,8 @@ Place your own images in `public/images/`. The home hero automatically reads eve
 
 Edit work categories and project details in `src/data/site.ts`. The Notes page is a small placeholder; it can later be expanded with Astro Content Collections and Markdown content.
 
+The Illustration page has a Coming Soon section. Put preview images in `public/images/illustration/coming-soon/`; move them to `public/images/illustration/` when published. Illustration images use square frames with the full artwork visible. Rebuild and deploy after changes.
+
 ## Languages
 
 The header offers English, Simplified Chinese, Traditional Chinese (Taiwan) and Japanese. English keeps the original root URLs; Simplified Chinese uses `/zh/`, Traditional Chinese (Taiwan) uses `/zh-tw/` and Japanese uses `/ja/`. Switching languages keeps the current page and saves the choice locally for future visits. Each language has static HTML, localized metadata and `hreflang` links. Edit translations in `src/i18n/index.ts`; edit shared page templates in `src/components/pages/`. Project descriptions live alongside project data in `src/data/site.ts`.
