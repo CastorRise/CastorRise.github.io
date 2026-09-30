@@ -5,6 +5,7 @@ import { categories } from '../../data/site';
 import { getGalleryImages, gallerySizes, coverSizes } from '../../lib/images';
 import { messages, localizedPath, type Locale } from '../../i18n';
 import type { Category } from '../../data/site';
+import { illustrationReleaseDates } from '../../data/releases';
 
 
 interface Props { locale?: Locale; category: Category; }
@@ -37,7 +38,10 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
           {upcomingImages.length > 0 ? upcomingImages.map((image, index) => (
             <figure class="gallery-item">
               <ScrollImage {image} sizes={gallerySizes} alt={`${copy.upcomingWork} ${index + 1}`} />
-              <figcaption><span>Coming Soon</span><span>{image.name}</span></figcaption>
+              <figcaption>
+                {illustrationReleaseDates[image.stem] ? <time datetime={illustrationReleaseDates[image.stem]}>{illustrationReleaseDates[image.stem].replaceAll('-', '.')}</time> : <span>{copy.releaseDatePending}</span>}
+                <span>{image.name}</span>
+              </figcaption>
             </figure>
           )) : (
             <div class="upcoming-placeholder"><span>Coming Soon</span><p>{copy.upcomingWork}</p></div>
@@ -58,6 +62,6 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
     ) : (
       <div class="gallery-empty"><div class="gallery-empty-mark" aria-hidden="true">{categoryCopy.title.slice(0, 1)}</div><p>{categoryCopy.title}</p><span>{copy.worksSoon}</span></div>
     )}
-    <div class="next-collection"><span class="eyebrow">{copy.continueExploring}</span><a href={url(`/works/${categories[(categories.findIndex((item) => item.slug === category.slug) + 1) % categories.length].slug}`)}>{copy.nextCollection} <span aria-hidden="true">↗</span></a></div>
+    <div class="next-collection"><a class="eyebrow" href={url('/works')}>{copy.continueExploring}</a><a href={url(`/works/${categories[(categories.findIndex((item) => item.slug === category.slug) + 1) % categories.length].slug}`)}>{copy.nextCollection} <span aria-hidden="true">↗</span></a></div>
   </div>
 </BaseLayout>

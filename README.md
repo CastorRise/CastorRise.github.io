@@ -23,6 +23,8 @@ Place your own images in `public/images/`. The home hero automatically reads eve
 
 Edit work categories and project details in `src/data/site.ts`. The Notes page is a small placeholder; it can later be expanded with Astro Content Collections and Markdown content.
 
+The About page includes a changelog. Edit `src/data/changelog.ts` to add a date (`YYYY-MM-DD`) and a title and change list for all four languages. Entries are displayed with the latest date first. Rebuild and deploy to publish updates.
+
 The Illustration page has a Coming Soon section. Put preview images in `public/images/illustration/coming-soon/`; move them to `public/images/illustration/` when published. Gallery images keep their original aspect ratios, without background frames, and stack independently in each column. Illustration category covers remain square. Rebuild and deploy after changes.
 
 ## Languages

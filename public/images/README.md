@@ -29,6 +29,8 @@
 
 ## 插画 Coming Soon
 
+图片左下角显示计划发布日期。日期在 `src/data/releases.ts` 中按图片文件名（不含扩展名）填写，格式为 `YYYY-MM-DD`，网页显示为 `YYYY.MM.DD`；尚未填写的图片显示“发布日期待定”。目前 `coming-soon-01` 的发布日期为 `2026.11.10`。
+
 即将发布的插画放在 `illustration/coming-soon/` 中，构建后会自动出现在插画页顶部的 Coming Soon 区域，并按文件名排序。支持 JPG、JPEG、PNG、WebP 和 AVIF，保留原图比例，按列上下接续排列。没有预告图片时会显示文字提示。
 
 正式发布时，把图片从 `illustration/coming-soon/` 移到 `illustration/`，重新提交并推送。图片就会从预告区域移到已发布作品区域。所有语言版本共用图片；图片只有在提交、推送并完成网站构建后才会在线上显示。

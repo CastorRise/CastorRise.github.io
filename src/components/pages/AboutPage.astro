@@ -3,11 +3,13 @@ import { messages, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ScrollImage from '../ScrollImage.astro';
 import { findImage, gallerySizes } from '../../lib/images';
+import { changelog } from '../../data/changelog';
 
 interface Props { locale?: Locale; }
 const { locale = 'en' } = Astro.props;
 const copy = messages[locale];
 const image = await findImage('about', 'about');
+const updates = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
 ---
 
 <BaseLayout locale={locale} title={copy.about + " — CastorRise"} description={copy.description}>
@@ -19,5 +21,21 @@ const image = await findImage('about', 'about');
       </div>
       <div class="about-copy"><span class="eyebrow">{copy.aboutMe} / 001</span><h2>{copy.aboutMe}</h2><p>{copy.aboutText}</p><a class="text-link" href="https://github.com/CastorRise" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
     </div>
+    <section class="about-updates" id="updates" aria-labelledby="updates-title">
+      <div class="section-heading"><div><p class="eyebrow">{copy.changelogKicker} / 002</p><h2 id="updates-title">{copy.changelog}</h2></div></div>
+      <ol class="changelog-list" role="list">
+        {updates.map((update) => (
+          <li class="changelog-entry">
+            <time datetime={update.date}>{update.date.replaceAll('-', '.')}</time>
+            <div>
+              <h3>{update.content[locale].title}</h3>
+              <ul class="changelog-changes" role="list">
+                {update.content[locale].changes.map((change) => <li>{change}</li>)}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
   </div>
 </BaseLayout>
