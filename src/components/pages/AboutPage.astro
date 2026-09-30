@@ -1,15 +1,23 @@
 ---
 import { messages, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScrollImage from '../ScrollImage.astro';
+import { findImage, gallerySizes } from '../../lib/images';
 
 interface Props { locale?: Locale; }
 const { locale = 'en' } = Astro.props;
 const copy = messages[locale];
+const image = await findImage('about', 'about');
 ---
 
 <BaseLayout locale={locale} title={copy.about + " — CastorRise"} description={copy.description}>
   <div class="page-shell about-page">
     <section class="page-intro" aria-labelledby="page-title"><p class="eyebrow">{copy.introduction}</p><h1 id="page-title">CastorRise</h1><p>{copy.aboutDisciplines}</p></section>
-    <div class="about-content"><div class="about-art" aria-hidden="true"><span>CR</span><small>{copy.create} / {copy.observe} / {copy.explore}</small></div><div class="about-copy"><span class="eyebrow">{copy.aboutMe} / 001</span><h2>{copy.aboutMe}</h2><p>{copy.aboutText}</p><a class="text-link" href="https://github.com/CastorRise" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div>
+    <div class="about-content">
+      <div class:list={['about-art', { 'about-art-image': image }]}>
+        {image ? <ScrollImage {image} sizes={gallerySizes} alt="CastorRise" /> : <><span>CR</span><small>{copy.create} / {copy.observe} / {copy.explore}</small></>}
+      </div>
+      <div class="about-copy"><span class="eyebrow">{copy.aboutMe} / 001</span><h2>{copy.aboutMe}</h2><p>{copy.aboutText}</p><a class="text-link" href="https://github.com/CastorRise" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+    </div>
   </div>
 </BaseLayout>

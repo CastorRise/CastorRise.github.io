@@ -11,6 +11,7 @@
 | 气象作品 | `public/images/weather/` | `weather-01.jpg`、`weather-02.jpg`… |
 | 项目封面 | `public/images/projects/` | Nimby-finance-tool 使用 `nimby.png` |
 | 课程表助手封面 | `public/images/projects/` | `class-schedule.jpg`、`class-schedule.png` 等 |
+| 关于页配图 | `public/images/about/` | `about.jpg`，也支持 `.jpeg`、`.png`、`.webp`、`.avif` |
 
 ## 首页多图
 

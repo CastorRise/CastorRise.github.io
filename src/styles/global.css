@@ -196,6 +196,8 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .notes-empty > span:last-child { color: var(--muted); font-size: 12px; line-height: 1.85; }
 .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 120px); align-items: center; }
 .about-art { min-height: 500px; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(26px, 4vw, 58px); background: var(--surface); }
+.about-art.about-art-image { display: block; min-height: 0; padding: 0; background: transparent; }
+.about-art-image img { width: 100%; height: auto; }
 .about-art span { font-family: inherit; color: var(--muted); font-size: clamp(90px, 14vw, 200px); letter-spacing: .015em; line-height: .9; }
 .about-art small { align-self: end; color: var(--muted); font-size: 10px; letter-spacing: .15em; }
 .about-copy h2 { margin: 20px 0 28px; font-size: clamp(36px, 4vw, 62px); font-weight: 400; letter-spacing: .015em; }
