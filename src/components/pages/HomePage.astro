@@ -3,27 +3,55 @@ import { messages, localizedPath, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../WorkCard.astro';
 import { categories, projects } from '../../data/site';
-import { findImage, getGalleryImages } from '../../lib/images';
+import { findImage } from '../../lib/images';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props { locale?: Locale; }
 const { locale = 'en' } = Astro.props;
 const copy = messages[locale];
 const url = (path: string) => localizedPath(locale, path);
 
-const heroImages = await getGalleryImages('hero');
-const heroPanels = heroImages.length ? heroImages : [null, null, null];
+const heroSources = import.meta.glob<ImageMetadata>('/public/images/hero/*.{jpg,jpeg,webp,avif,png,JPG,JPEG,WEBP,AVIF,PNG}', { eager: true, import: 'default' });
+const heroImages = await Promise.all(Object.entries(heroSources)
+  .sort(([a], [b]) => a.localeCompare(b, 'en', { numeric: true }))
+  .map(async ([, image]) => {
+    const width = Math.min(image.width, 2400);
+    const height = Math.round(width * image.height / image.width);
+    const optimized = await getImage({ src: image, width, height, format: 'webp', quality: 85 });
+    return { src: optimized.src, width, height };
+  }));
+const heroPanels = heroImages.length ? heroImages.slice(0, 3) : [null, null, null];
 const workImages = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
 const featuredProject = projects[0];
 const projectImage = await findImage('projects', featuredProject.imageStem);
 ---
 
 <BaseLayout locale={locale} home>
-  <section class="hero" style={`--hero-count: ${heroPanels.length}`} aria-labelledby="hero-title">
+  <section class="hero" style={`--hero-count: ${heroPanels.length}`} data-hero-images={JSON.stringify(heroImages)} aria-labelledby="hero-title">
     <div class="hero-visuals" aria-hidden="true">
       {heroPanels.map((image, index) => <div class:list={['hero-panel', { 'hero-panel-placeholder': !image }]}>
-        {image && <img class="hero-image" src={image.src} width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />}
+        {image && <>
+          <img class="hero-image" data-hero-image width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />
+          <noscript><img class="hero-image" src={image.src} width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /></noscript>
+        </>}
         <span class="hero-panel-index">{String(index + 1).padStart(2, '0')} / {String(heroPanels.length).padStart(2, '0')}</span>
       </div>)}
+      <script is:inline>
+        const hero = document.currentScript.closest('[data-hero-images]');
+        const images = JSON.parse(hero.dataset.heroImages);
+        // Shuffle once per page load, then use three distinct photos in the scroll panels.
+        for (let i = images.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [images[i], images[j]] = [images[j], images[i]];
+        }
+        hero.querySelectorAll('[data-hero-image]').forEach((element, index) => {
+          const image = images[index];
+          element.width = image.width;
+          element.height = image.height;
+          element.src = image.src;
+        });
+      </script>
     </div>
     <div class="hero-stage">
       <div class="hero-scrim" aria-hidden="true"></div>
