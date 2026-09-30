@@ -18,7 +18,7 @@ export type Category = (typeof categories)[number];
 export const projects = [
   {
     slug: 'nimby',
-    title: 'NIMBY Analysis',
+    title: 'Nimby-finance-tool',
     description: {
       en: 'A lightweight analysis tool.',
       zh: '一个轻量的分析工具。',

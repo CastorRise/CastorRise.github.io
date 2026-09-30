@@ -79,7 +79,7 @@ const projectImage = await findImage('projects', featuredProject.imageStem);
     </div>
     <a class="feature-project" href={url("/projects")} aria-label={copy.viewProject + " — " + featuredProject.title}>
       <div class="feature-project-image">
-        {projectImage ? <img src={projectImage.src} width={projectImage.width} height={projectImage.height} alt={featuredProject.title + " — " + copy.projectCover} loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>NIMBY Analysis</span><small>{copy.projectImageSoon}</small></div>}
+        {projectImage ? <img src={projectImage.src} width={projectImage.width} height={projectImage.height} alt={featuredProject.title + " — " + copy.projectCover} loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{featuredProject.title}</span><small>{copy.projectImageSoon}</small></div>}
       </div>
       <div class="feature-project-copy"><span class="eyebrow">{copy.featured} / 001</span><div><h3>{featuredProject.title}</h3><p>{featuredProject.description[locale]}</p></div><span class="project-link">{copy.viewProject} <span aria-hidden="true">↗</span></span></div>
     </a>
