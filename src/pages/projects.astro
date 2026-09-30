@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/site';
+import { findImage } from '../lib/images';
+
+const projectImages = await Promise.all(projects.map((project) => findImage('projects', project.imageStem)));
+---
+
+<BaseLayout title="Projects — CastorRise" description="Projects and thoughtful experiments by CastorRise.">
+  <div class="page-shell">
+    <section class="page-intro" aria-labelledby="page-title"><p class="eyebrow">Ideas made tangible</p><h1 id="page-title">Projects<span class="heading-period">.</span></h1><p>Small experiments at the intersection of curiosity and code.</p></section>
+    <div class="project-list">
+      {projects.map((project, index) => (
+        <article class="project-entry">
+          <div class="project-entry-media">
+            {projectImages[index] ? <img src={projectImages[index].src} width={projectImages[index].width} height={projectImages[index].height} alt={`${project.title} project cover`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.title}</span><small>Project image coming soon</small></div>}
+          </div>
+          <div class="project-entry-copy"><span class="eyebrow">Project / {String(index + 1).padStart(3, '0')}</span><h2>{project.title}</h2><p>{project.description}</p></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

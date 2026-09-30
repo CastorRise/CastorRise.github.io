@@ -1,0 +1,107 @@
+---
+const { home = false, currentPath = '/' } = Astro.props;
+const links = [
+  { label: 'Home', href: '/' },
+  { label: 'Works', href: '/works' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Notes', href: '/notes' },
+  { label: 'About', href: '/about' },
+];
+---
+
+<header class:list={['site-header', { 'is-over-hero': home }]} data-header data-home={home}>
+  <div class="header-inner">
+    <a class="wordmark" href="/" aria-label="CastorRise — Home">CastorRise<span class="wordmark-dot">.</span></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {links.map(({ label, href }) => (
+        <a href={href} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>{label}</a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Theme: System. Switch to Light" title="Theme: System">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <span class="theme-label" data-theme-label>System</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" data-mobile-menu hidden>
+    <div class="mobile-nav-inner">
+      {links.map(({ label, href }, index) => (
+        <a href={href} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>
+          <span class="mobile-nav-index">0{index + 1}</span>{label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const themeButton = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const themeLabel = document.querySelector<HTMLElement>('[data-theme-label]');
+  const main = document.querySelector<HTMLElement>('main');
+  const footer = document.querySelector<HTMLElement>('.site-footer');
+  const themes = ['system', 'light', 'dark'] as const;
+  type Theme = (typeof themes)[number];
+
+  function updateHeader() {
+    header?.classList.toggle('is-scrolled', window.scrollY > 32);
+  }
+
+  function setTheme(theme: Theme) {
+    document.documentElement.dataset.theme = theme;
+    try {
+      if (theme === 'system') localStorage.removeItem('theme');
+      else localStorage.setItem('theme', theme);
+    } catch {}
+    if (themeLabel) themeLabel.textContent = theme[0].toUpperCase() + theme.slice(1);
+    const next = themes[(themes.indexOf(theme) + 1) % themes.length];
+    if (themeButton) {
+      themeButton.setAttribute('aria-label', `Theme: ${theme}. Switch to ${next}`);
+      themeButton.title = `Theme: ${theme}`;
+    }
+  }
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  const saved = document.documentElement.dataset.theme;
+  setTheme(themes.includes(saved as Theme) ? saved as Theme : 'system');
+  themeButton?.addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme as Theme;
+    setTheme(themes[(themes.indexOf(current) + 1) % themes.length]);
+  });
+
+  function closeMenu(restoreFocus = false) {
+    if (!menuButton || !mobileMenu) return;
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open menu');
+    mobileMenu.hidden = true;
+    header?.classList.remove('menu-open');
+    document.body.classList.remove('menu-visible');
+    if (main) main.inert = false;
+    if (footer) footer.inert = false;
+    if (restoreFocus) menuButton.focus();
+  }
+
+  menuButton?.addEventListener('click', () => {
+    if (!menuButton || !mobileMenu) return;
+    const open = menuButton.getAttribute('aria-expanded') !== 'true';
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    mobileMenu.hidden = !open;
+    header?.classList.toggle('menu-open', open);
+    document.body.classList.toggle('menu-visible', open);
+    if (main) main.inert = open;
+    if (footer) footer.inert = open;
+    if (open) mobileMenu.querySelector('a')?.focus();
+  });
+  mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => closeMenu()));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu(true);
+  });
+</script>

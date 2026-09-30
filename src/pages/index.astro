@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { categories, projects } from '../data/site';
+import { findImage } from '../lib/images';
+
+const hero = await findImage('hero', 'hero');
+const workImages = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
+const featuredProject = projects[0];
+const projectImage = await findImage('projects', featuredProject.imageStem);
+---
+
+<BaseLayout home>
+  <section class:list={['hero', { 'hero-has-image': hero }]} aria-labelledby="hero-title">
+    {hero && <img class="hero-image" src={hero.src} width={hero.width} height={hero.height} alt="" fetchpriority="high" decoding="async" />}
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <p class="hero-overline">A personal space for seeing and making</p>
+      <h1 id="hero-title">CastorRise</h1>
+      <p class="hero-subtitle">Create <span>·</span> Observe <span>·</span> Explore</p>
+      <p class="hero-disciplines">Photography / Illustration / Weather / Code</p>
+    </div>
+    <a class="scroll-cue" href="#selected-works" aria-label="Scroll to selected works"><span class="scroll-cue-line" aria-hidden="true"></span><span>Scroll to explore</span></a>
+    <span class="hero-side-note" aria-hidden="true">EST. 2026&nbsp; — &nbsp;A PERSONAL ARCHIVE</span>
+  </section>
+
+  <section class="section selected-works" id="selected-works" aria-labelledby="works-title">
+    <div class="section-heading">
+      <div><p class="eyebrow">01 / A visual archive</p><h2 id="works-title">Selected <em>Works</em></h2></div>
+      <a class="text-link" href="/works">Explore all works <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="works-grid">
+      {categories.map((category, index) => <WorkCard category={category} image={workImages[index]} index={index} />)}
+    </div>
+  </section>
+
+  <section class="section projects-section" aria-labelledby="projects-title">
+    <div class="section-heading">
+      <div><p class="eyebrow">02 / Thoughtful experiments</p><h2 id="projects-title">Projects<span class="heading-period">.</span></h2></div>
+      <a class="text-link" href="/projects">View projects <span aria-hidden="true">↗</span></a>
+    </div>
+    <a class="feature-project" href="/projects" aria-label="View NIMBY Analysis in Projects">
+      <div class="feature-project-image">
+        {projectImage ? <img src={projectImage.src} width={projectImage.width} height={projectImage.height} alt="NIMBY Analysis project cover" loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>NIMBY Analysis</span><small>Project image coming soon</small></div>}
+      </div>
+      <div class="feature-project-copy"><span class="eyebrow">Featured project / 001</span><div><h3>{featuredProject.title}</h3><p>{featuredProject.description}</p></div><span class="project-link">View project <span aria-hidden="true">↗</span></span></div>
+    </a>
+  </section>
+
+  <section class="home-closing" aria-label="Closing note">
+    <p>“The things we notice<br />become the things we remember.”</p>
+    <span>Observe closely. Make thoughtfully.</span>
+  </section>
+</BaseLayout>
