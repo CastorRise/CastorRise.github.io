@@ -55,6 +55,8 @@ img { display: block; max-width: 100%; }
 .site-header.is-scrolled, .site-header:not(.is-over-hero), .site-header.menu-open { background: var(--header-bg); border-bottom-color: var(--line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: var(--text); }
 .header-inner { width: min(100% - 104px, 1680px); height: 100%; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .wordmark { font-size: 19px; font-weight: 650; letter-spacing: .015em; line-height: 1; white-space: nowrap; }
+.wordmark-dot { color: var(--accent); }
+.site-header.is-over-hero:not(.is-scrolled):not(.menu-open) .wordmark-dot { color: #dde8de; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(22px, 2.4vw, 42px); margin-left: auto; }
 .desktop-nav a { white-space: nowrap; font-size: 12px; font-weight: 500; letter-spacing: .025em; opacity: .72; transition: opacity .2s ease; }
 .desktop-nav a:hover, .desktop-nav a[aria-current="page"] { opacity: 1; }
