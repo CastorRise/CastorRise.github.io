@@ -118,9 +118,9 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .text-link:hover { gap: 29px; }
 .text-link span { font-size: 18px; font-weight: 300; }
 
-.works-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 2.5vw, 36px); align-items: start; }
+.works-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(48px, 6vw, 88px); align-items: start; }
 .work-card { display: block; min-width: 0; }
-.work-card-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--surface); }
+.work-card-media { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--surface); }
 .work-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .42s ease; }
 .work-card:hover .work-card-media img { transform: scale(1.03); }
 .image-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(20px, 3vw, 48px); background: var(--surface); color: var(--muted); }
@@ -225,8 +225,6 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .section { padding-top: 100px; }
   .section-heading { align-items: start; flex-direction: column; gap: 24px; margin-bottom: 34px; }
   .section-heading h2 { margin-top: 18px; }
-  .works-grid { display: block; }
-  .work-card { width: 100%; margin: 0 0 55px; }
   .work-card-caption { margin-top: 16px; padding-top: 13px; }
   .card-arrow { display: none; }
   .projects-section { padding-top: 48px; padding-bottom: 100px; }
