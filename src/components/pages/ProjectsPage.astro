@@ -2,7 +2,7 @@
 import { messages, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { projects } from '../../data/site';
-import { findImage } from '../../lib/images';
+import { findImage, projectSizes } from '../../lib/images';
 
 interface Props { locale?: Locale; }
 const { locale = 'en' } = Astro.props;
@@ -18,7 +18,7 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
       {projects.map((project, index) => (
         <article class="project-entry" id={project.slug}>
           <div class="project-entry-media">
-            {projectImages[index] ? <img src={projectImages[index].src} width={projectImages[index].width} height={projectImages[index].height} alt={`${project.title} — ${copy.projectCover}`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.slug === 'class-schedule-to-calendar' ? 'PDF → ICS' : project.title}</span><small>{project.slug === 'class-schedule-to-calendar' ? copy.timetable : copy.projectImageSoon}</small></div>}
+            {projectImages[index] ? <img src={projectImages[index].src} srcset={projectImages[index].srcset} sizes={projectSizes} width={projectImages[index].width} height={projectImages[index].height} alt={`${project.title} — ${copy.projectCover}`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.slug === 'class-schedule-to-calendar' ? 'PDF → ICS' : project.title}</span><small>{project.slug === 'class-schedule-to-calendar' ? copy.timetable : copy.projectImageSoon}</small></div>}
           </div>
           <div class="project-entry-copy"><span class="eyebrow">{copy.project} / {String(index + 1).padStart(3, '0')}</span><h2>{project.title}</h2><p>{project.description[locale]}</p><a class="project-link" href={project.repository} target="_blank" rel="noopener noreferrer">{copy.viewRepository} <span aria-hidden="true">↗</span></a></div>
         </article>

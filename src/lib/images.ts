@@ -9,22 +9,35 @@ const imageSources = import.meta.glob<ImageMetadata>('/public/images/**/*.{jpg,j
 
 export interface LocalImage {
   src: string;
+  srcset: string;
   width: number;
   height: number;
   name: string;
 }
 
-async function describeImage(folder: string, filename: string): Promise<LocalImage> {
-  const image = imageSources[`/public/images/${folder}/${filename}`];
-  const width = Math.min(image.width, 2400);
-  const height = Math.round(width * image.height / image.width);
-  const optimized = await getImage({ src: image, width, height, format: 'webp', quality: 85 });
+// Match the existing layout widths; keep originals and avoid upscaling small images.
+export const coverSizes = '(max-width: 700px) calc(100vw - 40px), (max-width: 1100px) calc(100vw - 64px), (max-width: 1544px) calc(100vw - 104px), 1440px';
+export const gallerySizes = '(max-width: 700px) calc(100vw - 40px), (max-width: 1100px) calc(48vw - 32px), (max-width: 1544px) calc(48vw - 52px), 688px';
+export const projectSizes = '(max-width: 700px) calc(100vw - 40px), (max-width: 1100px) calc(60vw - 38px), (max-width: 1544px) calc(66vw - 69px), 952px';
+
+export async function createPreview(image: ImageMetadata, filename: string): Promise<LocalImage> {
+  const width = Math.min(image.width, 1920);
+  const widths = [...new Set([480, 800, 1200, 1600, width].filter((size) => size <= width))].sort((a, b) => a - b);
+  const variants = await Promise.all(widths.map(async (size) => {
+    const optimized = await getImage({ src: image, width: size, format: 'webp', quality: 78 });
+    return { src: optimized.src, width: size };
+  }));
   return {
-    src: optimized.src,
+    src: variants[variants.length - 1].src,
+    srcset: variants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
     width,
-    height,
+    height: Math.round(width * image.height / image.width),
     name: filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
   };
+}
+
+async function describeImage(folder: string, filename: string): Promise<LocalImage> {
+  return createPreview(imageSources[`/public/images/${folder}/${filename}`], filename);
 }
 
 export async function findImage(folder: string, stem: string): Promise<LocalImage | null> {

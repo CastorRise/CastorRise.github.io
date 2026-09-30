@@ -3,8 +3,7 @@ import { messages, localizedPath, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../WorkCard.astro';
 import { categories, projects } from '../../data/site';
-import { findImage } from '../../lib/images';
-import { getImage } from 'astro:assets';
+import { findImage, createPreview, projectSizes } from '../../lib/images';
 import type { ImageMetadata } from 'astro';
 
 interface Props { locale?: Locale; }
@@ -15,12 +14,7 @@ const url = (path: string) => localizedPath(locale, path);
 const heroSources = import.meta.glob<ImageMetadata>('/public/images/hero/*.{jpg,jpeg,webp,avif,png,JPG,JPEG,WEBP,AVIF,PNG}', { eager: true, import: 'default' });
 const heroImages = await Promise.all(Object.entries(heroSources)
   .sort(([a], [b]) => a.localeCompare(b, 'en', { numeric: true }))
-  .map(async ([, image]) => {
-    const width = Math.min(image.width, 2400);
-    const height = Math.round(width * image.height / image.width);
-    const optimized = await getImage({ src: image, width, height, format: 'webp', quality: 85 });
-    return { src: optimized.src, width, height };
-  }));
+  .map(([path, image]) => createPreview(image, path.split('/').pop()!)));
 const heroPanels = heroImages.length ? heroImages.slice(0, 3) : [null, null, null];
 const workImages = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
 const projectImages = await Promise.all(projects.map((project) => findImage('projects', project.imageStem)));
@@ -32,7 +26,7 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
       {heroPanels.map((image, index) => <div class:list={['hero-panel', { 'hero-panel-placeholder': !image }]}>
         {image && <>
           <img class="hero-image" data-hero-image width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />
-          <noscript><img class="hero-image" src={image.src} width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /></noscript>
+          <noscript><img class="hero-image" src={image.src} srcset={image.srcset} sizes={`max(100vw, ${100 * image.width / image.height}vh)`} width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /></noscript>
         </>}
         <span class="hero-panel-index">{String(index + 1).padStart(2, '0')} / {String(heroPanels.length).padStart(2, '0')}</span>
       </div>)}
@@ -48,6 +42,8 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
           const image = images[index];
           element.width = image.width;
           element.height = image.height;
+          element.sizes = `max(100vw, ${100 * image.width / image.height}vh)`;
+          element.srcset = image.srcset;
           element.src = image.src;
         });
       </script>
@@ -79,7 +75,7 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
     <div class="project-list">
     {projects.map((project, index) => <a class="feature-project" href={url("/projects") + '#' + project.slug} aria-label={copy.viewProject + " — " + project.title}>
       <div class="feature-project-image">
-        {projectImages[index] ? <img src={projectImages[index].src} width={projectImages[index].width} height={projectImages[index].height} alt={project.title + " — " + copy.projectCover} loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.slug === 'class-schedule-to-calendar' ? 'PDF → ICS' : project.title}</span><small>{project.slug === 'class-schedule-to-calendar' ? copy.timetable : copy.projectImageSoon}</small></div>}
+        {projectImages[index] ? <img src={projectImages[index].src} srcset={projectImages[index].srcset} sizes={projectSizes} width={projectImages[index].width} height={projectImages[index].height} alt={project.title + " — " + copy.projectCover} loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.slug === 'class-schedule-to-calendar' ? 'PDF → ICS' : project.title}</span><small>{project.slug === 'class-schedule-to-calendar' ? copy.timetable : copy.projectImageSoon}</small></div>}
       </div>
       <div class="feature-project-copy"><span class="eyebrow">{copy.project} / {String(index + 1).padStart(3, '0')}</span><div><h3>{project.title}</h3><p>{project.description[locale]}</p></div><span class="project-link">{copy.viewProject} <span aria-hidden="true">↗</span></span></div>
     </a>)}
