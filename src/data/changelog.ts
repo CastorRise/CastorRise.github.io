@@ -10,7 +10,7 @@ export const changelog: Update[] = [
     date: '2026-09-30',
     content: {
       zh: {
-        title: '图片展示与页面完善',
+        title: '网站创建与细节打磨',
         changes: [
           '关于页加入配图与更新日志。',
           'Coming Soon 预告显示计划发布日期。',
@@ -22,7 +22,7 @@ export const changelog: Update[] = [
         ],
       },
       'zh-tw': {
-        title: '圖片展示與頁面完善',
+        title: '網站建立與細節打磨',
         changes: [
           '關於頁加入配圖與更新紀錄。',
           'Coming Soon 預告顯示預計發佈日期。',
@@ -34,7 +34,7 @@ export const changelog: Update[] = [
         ],
       },
       en: {
-        title: 'Image display and page refinements',
+        title: 'Website creation and refinement',
         changes: [
           'Added artwork and a changelog to the About page.',
           'Displayed planned release dates beneath Coming Soon previews.',
@@ -46,7 +46,7 @@ export const changelog: Update[] = [
         ],
       },
       ja: {
-        title: '画像表示とページの改善',
+        title: 'サイトの作成と細部の調整',
         changes: [
           '紹介ページにイラストと更新履歴を追加。',
           'Coming Soon のプレビューに公開予定日を表示。',
