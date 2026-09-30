@@ -1,9 +1,11 @@
-import { imageMetadata } from 'astro/assets/utils';
-import { readFile, readdir } from 'node:fs/promises';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const imageRoot = join(process.cwd(), 'public', 'images');
 const extensions = ['jpg', 'jpeg', 'webp', 'avif', 'png'];
+const imageSources = import.meta.glob<ImageMetadata>('/public/images/*/*.{jpg,jpeg,webp,avif,png,JPG,JPEG,WEBP,AVIF,PNG}', { eager: true, import: 'default' });
 
 export interface LocalImage {
   src: string;
@@ -13,13 +15,14 @@ export interface LocalImage {
 }
 
 async function describeImage(folder: string, filename: string): Promise<LocalImage> {
-  const path = join(imageRoot, folder, filename);
-  const bytes = new Uint8Array(await readFile(path));
-  const metadata = await imageMetadata(bytes, filename);
+  const image = imageSources[`/public/images/${folder}/${filename}`];
+  const width = Math.min(image.width, 2400);
+  const height = Math.round(width * image.height / image.width);
+  const optimized = await getImage({ src: image, width, height, format: 'webp', quality: 85 });
   return {
-    src: `/images/${folder}/${filename}`,
-    width: metadata.width,
-    height: metadata.height,
+    src: optimized.src,
+    width,
+    height,
     name: filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
   };
 }
