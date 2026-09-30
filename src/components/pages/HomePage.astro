@@ -3,31 +3,39 @@ import { messages, localizedPath, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../WorkCard.astro';
 import { categories, projects } from '../../data/site';
-import { findImage } from '../../lib/images';
+import { findImage, getGalleryImages } from '../../lib/images';
 
 interface Props { locale?: Locale; }
 const { locale = 'en' } = Astro.props;
 const copy = messages[locale];
 const url = (path: string) => localizedPath(locale, path);
 
-const hero = await findImage('hero', 'hero');
+const heroImages = await getGalleryImages('hero');
+const heroPanels = heroImages.length ? heroImages : [null, null, null];
 const workImages = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
 const featuredProject = projects[0];
 const projectImage = await findImage('projects', featuredProject.imageStem);
 ---
 
 <BaseLayout locale={locale} home>
-  <section class:list={['hero', { 'hero-has-image': hero }]} aria-labelledby="hero-title">
-    {hero && <img class="hero-image" src={hero.src} width={hero.width} height={hero.height} alt="" fetchpriority="high" decoding="async" />}
-    <div class="hero-scrim"></div>
-    <div class="hero-content">
-      <p class="hero-overline">{copy.heroOverline}</p>
-      <h1 id="hero-title">CastorRise</h1>
-      <p class="hero-subtitle">{copy.create} <span>·</span> {copy.observe} <span>·</span> {copy.explore}</p>
-      <p class="hero-disciplines">{copy.disciplines}</p>
+  <section class="hero" style={`--hero-count: ${heroPanels.length}`} aria-labelledby="hero-title">
+    <div class="hero-visuals" aria-hidden="true">
+      {heroPanels.map((image, index) => <div class:list={['hero-panel', { 'hero-panel-placeholder': !image }]}>
+        {image && <img class="hero-image" src={image.src} width={image.width} height={image.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />}
+        <span class="hero-panel-index">{String(index + 1).padStart(2, '0')} / {String(heroPanels.length).padStart(2, '0')}</span>
+      </div>)}
     </div>
-    <a class="scroll-cue" href="#selected-works" aria-label={copy.scrollLabel}><span class="scroll-cue-line" aria-hidden="true"></span><span>{copy.scroll}</span></a>
-    <span class="hero-side-note" aria-hidden="true">{copy.archiveNote}</span>
+    <div class="hero-stage">
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-overline">{copy.heroOverline}</p>
+        <h1 id="hero-title">CastorRise</h1>
+        <p class="hero-subtitle">{copy.create} <span>·</span> {copy.observe} <span>·</span> {copy.explore}</p>
+        <p class="hero-disciplines">{copy.disciplines}</p>
+      </div>
+      <a class="scroll-cue" href="#selected-works" aria-label={copy.scrollLabel}><span class="scroll-cue-line" aria-hidden="true"></span><span>{copy.scroll}</span></a>
+      <span class="hero-side-note" aria-hidden="true">{copy.archiveNote}</span>
+    </div>
   </section>
 
   <section class="section selected-works" id="selected-works" aria-labelledby="works-title">

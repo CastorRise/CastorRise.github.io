@@ -1,13 +1,27 @@
-# Image placement
+# 图片放在哪里
 
-Use your own images. The website shows quiet placeholders until the files exist. Rebuild after adding images.
+把自己的图片复制到下面的目录，提交并推送到 `main` 后，GitHub Actions 会重新构建、发布网站。所有语言版本共用这些图片。
 
-| Area | Files |
-| --- | --- |
-| Home hero | `hero/hero.jpg` |
-| Photography | `photography/photo-01.jpg`, `photo-02.jpg`, ... |
-| Illustration | `illustration/illustration-01.jpg`, ... |
-| Weather | `weather/weather-01.jpg`, ... |
-| Project cover | `projects/<project-name>.jpg` (first project: `projects/nimby.jpg`) |
+| 展示位置 | 本地目录 | 建议文件名 |
+| --- | --- | --- |
+| 首页滚动背景 | `public/images/hero/` | `hero-01.jpg`、`hero-02.jpg`、`hero-03.jpg`… |
+| 摄影作品 | `public/images/photography/` | `photo-01.jpg`、`photo-02.jpg`… |
+| 插画作品 | `public/images/illustration/` | `illustration-01.jpg`、`illustration-02.jpg`… |
+| 气象作品 | `public/images/weather/` | `weather-01.jpg`、`weather-02.jpg`… |
+| 项目封面 | `public/images/projects/` | 当前项目使用 `nimby.jpg` |
 
-The first numbered image in each work folder becomes its cover on the home and Works pages. Gallery pages automatically list all JPEG, PNG, WebP and AVIF images in their folder in numeric filename order. The same stems with `.webp`, `.avif` or `.png` also work for covers and the hero. Prefer WebP or AVIF when practical; JPEG and PNG are supported. Keep the original aspect ratio for gallery images. For the full-screen hero, choose a landscape photo at least 2000 px wide. Describe meaningful image content in the gallery page when you publish it; the initial labels are generic placeholders.
+## 首页多图
+
+首页自动读取 `hero/` 里的所有 JPEG、PNG、WebP 和 AVIF 图片，按文件名的数字顺序排列，无需修改代码。滚动时图片依次向上移动，标题在这一组图片中保持居中；最后进入精选作品。只有一张图时展示一屏；没有图片时展示三屏占位背景。
+
+原来的 `hero.jpg` 仍然支持。使用新编号命名时，如果不需要旧图，请移走旧文件，避免一起显示。不要为同一张图片放入多个格式，否则会分别展示。
+
+建议选横图，宽度至少 2000 px。背景使用 `cover` 保持比例填满屏幕，手机上会裁掉左右两侧，主体尽量靠近中央。建议每张控制在约 300–800 KB，优先 WebP / AVIF；也支持 JPEG / PNG。第一张优先加载，后面的图片延迟加载。
+
+## 作品与封面
+
+摄影、插画、气象目录中的所有支持格式图片都会自动出现在各自的作品页，并按文件名排序，保留原始比例。`photo-01`、`illustration-01`、`weather-01` 分别作为首页和作品总览的封面；对应的 `.jpg`、`.jpeg`、`.webp`、`.avif`、`.png` 都支持。
+
+项目封面使用 `projects/nimby.jpg`，也支持上面列出的其他扩展名。项目资料在 `src/data/site.ts` 中修改。
+
+本地预览运行 `npm run dev`；图片尺寸在构建时读取，增加或替换图片后需要重新构建。还没有图片时页面正常显示占位背景。

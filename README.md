@@ -19,7 +19,7 @@ npm run preview
 
 ## Images and content
 
-Place your own images in `public/images/`; see [the image guide](public/images/README.md) for names and recommendations. The site builds without any images and displays placeholders. Gallery pages automatically include supported images in their respective folders, sorted by filename. The image dimensions are read at build time, so rebuild after adding or replacing images.
+Place your own images in `public/images/`. The home hero automatically reads every supported image in `public/images/hero/`, ordered by filename (for example, `hero-01.jpg`, `hero-02.jpg`, `hero-03.jpg`), and displays them vertically as you scroll with the title held in the center. See [the image guide](public/images/README.md) for names and recommendations. The site builds without any images and displays placeholders. Gallery pages automatically include supported images in their respective folders, sorted by filename. The image dimensions are read at build time, so rebuild after adding or replacing images.
 
 Edit work categories and project details in `src/data/site.ts`. The Notes page is a small placeholder; it can later be expanded with Astro Content Collections and Markdown content.
 
