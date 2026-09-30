@@ -131,8 +131,9 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .work-card-media[data-category="weather"] .image-placeholder { background: #727c76; color: #f4f5f1; }
 .card-arrow { position: absolute; right: 18px; top: 14px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--bg); color: var(--text); font-size: 18px; opacity: 0; transform: translateY(4px); transition: opacity .3s ease, transform .3s ease; }
 .work-card:hover .card-arrow { opacity: 1; transform: translateY(0); }
-.work-card-caption { display: flex; justify-content: space-between; align-items: end; padding-top: 18px; border-top: 1px solid var(--line); margin-top: 20px; }
-.work-card-caption h3 { margin: 8px 0 0; font-size: clamp(21px, 2.2vw, 30px); font-weight: 400; letter-spacing: .015em; }
+.work-card-caption { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 28px; }
+.work-card-caption h2 { margin: 12px 0 0; font-size: clamp(28px, 3vw, 44px); font-weight: 400; letter-spacing: .015em; line-height: 1.3; }
+.works-browse { display: flex; justify-content: flex-end; margin-top: 48px; }
 .caption-arrow { color: var(--muted); font-size: 19px; font-weight: 300; }
 
 .projects-section { padding-bottom: clamp(112px, 12vw, 190px); }
@@ -237,7 +238,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .section-heading { align-items: start; flex-direction: column; gap: 24px; margin-bottom: 34px; }
   .section-heading h2 { margin-top: 18px; }
   .work-card-media { aspect-ratio: 1 / 1; }
-  .work-card-caption { margin-top: 16px; padding-top: 13px; }
+  .work-card-caption { margin-bottom: 22px; }
   .card-arrow { display: none; }
   .projects-section { padding-top: 48px; padding-bottom: 100px; }
   .feature-project { display: block; min-height: 0; }

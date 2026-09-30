@@ -16,7 +16,7 @@ const images = await Promise.all(categories.map((category) => findImage(category
   <div class="page-shell">
     <section class="page-intro" aria-labelledby="page-title">
       <p class="eyebrow">{copy.archive} / 001 — 003</p>
-      <h1 id="page-title">{copy.selected} <em>{copy.works}</em></h1>
+      <h1 id="page-title">{copy.works}<span class="heading-period">.</span></h1>
       <p>{copy.worksIntro}</p>
     </section>
     <div class="works-grid works-page-grid">

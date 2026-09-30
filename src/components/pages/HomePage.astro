@@ -65,14 +65,11 @@ const projectImage = await findImage('projects', featuredProject.imageStem);
     </div>
   </section>
 
-  <section class="section selected-works" id="selected-works" aria-labelledby="works-title">
-    <div class="section-heading">
-      <div><p class="eyebrow">01 / {copy.archive}</p><h2 id="works-title">{copy.selected} <em>{copy.works}</em></h2></div>
-      <a class="text-link" href={url("/works")}>{copy.exploreWorks} <span aria-hidden="true">↗</span></a>
-    </div>
+  <section class="section selected-works" id="selected-works" aria-label={copy.works}>
     <div class="works-grid">
       {categories.map((category, index) => <WorkCard category={category} locale={locale} image={workImages[index]} index={index} />)}
     </div>
+    <div class="works-browse"><a class="text-link" href={url("/works")}>{copy.exploreWorks} <span aria-hidden="true">↗</span></a></div>
   </section>
 
   <section class="section projects-section" aria-labelledby="projects-title">
