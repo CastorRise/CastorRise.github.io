@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-09-30',
     content: {
+      zh: { title: '摄影作品更新', changes: ['新增 4 张摄影作品，作品集现共 14 张照片。'] },
+      'zh-tw': { title: '攝影作品更新', changes: ['新增 4 張攝影作品，作品集現共 14 張照片。'] },
+      en: { title: 'Photography collection update', changes: ['Added four photographs, bringing the collection to 14 images.'] },
+      ja: { title: '写真作品の更新', changes: ['写真を 4 点追加し、作品集は全 14 点になりました。'] },
+    },
+  },
+  {
+    date: '2026-09-30',
+    content: {
       zh: {
         title: '网站创建与细节打磨',
         changes: [

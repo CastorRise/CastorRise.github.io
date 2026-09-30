@@ -55,7 +55,7 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
         {orderedImages.map((image, index) => (
           <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]}>
             <ScrollImage {image} sizes={isWideImage(image) ? coverSizes : gallerySizes} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} />
-            <figcaption><span>0{index + 1}</span><span>{image.name}</span></figcaption>
+            <figcaption><span>{String(index + 1).padStart(2, '0')}</span><span>{image.name}</span></figcaption>
           </figure>
         ))}
       </div>
