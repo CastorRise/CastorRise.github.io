@@ -1,6 +1,7 @@
 ---
 import type { Category } from '../data/site';
 import { coverSizes, type LocalImage } from '../lib/images';
+import ScrollImage from './ScrollImage.astro';
 import { messages, localizedPath, type Locale } from '../i18n';
 
 interface Props {
@@ -21,7 +22,7 @@ const categoryCopy = copy.categories[category.slug];
   </div>
   <div class="work-card-media" data-category={category.slug}>
     {image ? (
-      <img src={image.src} srcset={image.srcset} sizes={coverSizes} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.collectionCover}`} loading="lazy" decoding="async" />
+      <ScrollImage {image} sizes={coverSizes} alt={`${categoryCopy.title} — ${copy.collectionCover}`} />
     ) : (
       <div class="image-placeholder" aria-hidden="true"><span>{categoryCopy.title}</span><small>{copy.imageSoon}</small></div>
     )}

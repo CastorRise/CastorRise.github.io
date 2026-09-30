@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScrollImage from '../ScrollImage.astro';
 import { categories } from '../../data/site';
 import { getGalleryImages, gallerySizes, coverSizes } from '../../lib/images';
 import { messages, localizedPath, type Locale } from '../../i18n';
@@ -35,7 +36,7 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
         <div class="gallery upcoming-grid" data-category="illustration">
           {upcomingImages.length > 0 ? upcomingImages.map((image, index) => (
             <figure class="gallery-item">
-              <img src={image.src} srcset={image.srcset} sizes={gallerySizes} width={image.width} height={image.height} alt={`${copy.upcomingWork} ${index + 1}`} loading="lazy" decoding="async" />
+              <ScrollImage {image} sizes={gallerySizes} alt={`${copy.upcomingWork} ${index + 1}`} />
               <figcaption><span>Coming Soon</span><span>{image.name}</span></figcaption>
             </figure>
           )) : (
@@ -49,7 +50,7 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
       <div class="gallery" data-category={category.slug} aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
         {orderedImages.map((image, index) => (
           <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]}>
-            <img src={image.src} srcset={image.srcset} sizes={isWideImage(image) ? coverSizes : gallerySizes} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} loading="lazy" decoding="async" />
+            <ScrollImage {image} sizes={isWideImage(image) ? coverSizes : gallerySizes} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} />
             <figcaption><span>0{index + 1}</span><span>{image.name}</span></figcaption>
           </figure>
         ))}

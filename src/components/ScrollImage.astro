@@ -1,0 +1,13 @@
+---
+import type { LocalImage } from '../lib/images';
+
+interface Props {
+  image: LocalImage;
+  alt: string;
+  sizes: string;
+}
+const { image, alt, sizes } = Astro.props;
+---
+
+<img data-deferred-image data-src={image.src} data-srcset={image.srcset} {sizes} width={image.width} height={image.height} {alt} decoding="async" />
+<noscript><img src={image.src} srcset={image.srcset} {sizes} width={image.width} height={image.height} {alt} loading="lazy" decoding="async" /></noscript>

@@ -41,6 +41,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
     <title>{title}</title>
+    <noscript><style is:inline>[data-deferred-image], [data-hero-image] { display: none !important; }</style></noscript>
     <script is:inline>
       try {
         const language = localStorage.getItem('language');
@@ -60,5 +61,29 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <Header {home} {currentPath} {locale} />
     <main id="main"><slot /></main>
     <Footer {locale} />
+    <script>
+      const loadImage = (image: HTMLImageElement) => {
+        // Let the observer decide when to load, rather than a second native lazy-load threshold.
+        image.loading = 'eager';
+        if (image.dataset.srcset) image.srcset = image.dataset.srcset;
+        if (image.dataset.src) image.src = image.dataset.src;
+        delete image.dataset.src;
+        delete image.dataset.srcset;
+        delete image.dataset.deferredImage;
+      };
+      const images = document.querySelectorAll<HTMLImageElement>('img[data-deferred-image]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            loadImage(entry.target as HTMLImageElement);
+            observer.unobserve(entry.target);
+          }
+        }, { rootMargin: '160px 0px' });
+        images.forEach((image) => observer.observe(image));
+      } else {
+        images.forEach(loadImage);
+      }
+    </script>
   </body>
 </html>
