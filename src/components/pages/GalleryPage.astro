@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { categories } from '../../data/site';
-import { getGalleryImages, gallerySizes } from '../../lib/images';
+import { getGalleryImages, gallerySizes, coverSizes } from '../../lib/images';
 import { messages, localizedPath, type Locale } from '../../i18n';
 import type { Category } from '../../data/site';
 
@@ -12,6 +12,8 @@ const copy = messages[locale];
 const categoryCopy = copy.categories[category.slug];
 const url = (path: string) => localizedPath(locale, path);
 const images = await getGalleryImages(category.slug);
+const isWideImage = (image: (typeof images)[number]) =>
+  (category.slug === 'photography' || category.slug === 'weather') && image.aspectRatio > 16 / 9;
 const upcomingImages = category.slug === 'illustration' ? await getGalleryImages('illustration/coming-soon') : [];
 ---
 
@@ -45,8 +47,8 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
     {images.length > 0 ? (
       <div class="gallery" data-category={category.slug} aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
         {images.map((image, index) => (
-          <figure class="gallery-item">
-            <img src={image.src} srcset={image.srcset} sizes={gallerySizes} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} loading="lazy" decoding="async" />
+          <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]}>
+            <img src={image.src} srcset={image.srcset} sizes={isWideImage(image) ? coverSizes : gallerySizes} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} loading="lazy" decoding="async" />
             <figcaption><span>0{index + 1}</span><span>{image.name}</span></figcaption>
           </figure>
         ))}

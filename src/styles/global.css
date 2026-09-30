@@ -165,6 +165,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .gallery-page .page-intro { padding-top: 65px; }
 .gallery { columns: 2; column-gap: clamp(22px, 4vw, 64px); }
 .gallery-item { break-inside: avoid; margin: 0 0 clamp(45px, 6vw, 90px); }
+.gallery-item-wide { column-span: all; }
 .gallery-item img { width: 100%; height: auto; background: transparent; }
 .collection-heading { margin-bottom: 32px; }
 .collection-heading h2 { margin: 0; font-size: clamp(26px, 3vw, 40px); font-weight: 400; letter-spacing: .015em; line-height: 1.3; }

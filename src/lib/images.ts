@@ -12,6 +12,7 @@ export interface LocalImage {
   srcset: string;
   width: number;
   height: number;
+  aspectRatio: number;
   name: string;
 }
 
@@ -32,6 +33,7 @@ export async function createPreview(image: ImageMetadata, filename: string): Pro
     srcset: variants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
     width,
     height: Math.round(width * image.height / image.width),
+    aspectRatio: image.width / image.height,
     name: filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
   };
 }
