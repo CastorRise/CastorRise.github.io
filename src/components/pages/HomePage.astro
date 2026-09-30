@@ -23,8 +23,7 @@ const heroImages = await Promise.all(Object.entries(heroSources)
   }));
 const heroPanels = heroImages.length ? heroImages.slice(0, 3) : [null, null, null];
 const workImages = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
-const featuredProject = projects[0];
-const projectImage = await findImage('projects', featuredProject.imageStem);
+const projectImages = await Promise.all(projects.map((project) => findImage('projects', project.imageStem)));
 ---
 
 <BaseLayout locale={locale} home>
@@ -77,12 +76,14 @@ const projectImage = await findImage('projects', featuredProject.imageStem);
       <div><p class="eyebrow">02 / {copy.experiments}</p><h2 id="projects-title">{copy.projects}</h2></div>
       <a class="text-link" href={url("/projects")}>{copy.viewProjects} <span aria-hidden="true">↗</span></a>
     </div>
-    <a class="feature-project" href={url("/projects")} aria-label={copy.viewProject + " — " + featuredProject.title}>
+    <div class="project-list">
+    {projects.map((project, index) => <a class="feature-project" href={url("/projects") + '#' + project.slug} aria-label={copy.viewProject + " — " + project.title}>
       <div class="feature-project-image">
-        {projectImage ? <img src={projectImage.src} width={projectImage.width} height={projectImage.height} alt={featuredProject.title + " — " + copy.projectCover} loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{featuredProject.title}</span><small>{copy.projectImageSoon}</small></div>}
+        {projectImages[index] ? <img src={projectImages[index].src} width={projectImages[index].width} height={projectImages[index].height} alt={project.title + " — " + copy.projectCover} loading="lazy" decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.slug === 'class-schedule-to-calendar' ? 'PDF → ICS' : project.title}</span><small>{project.slug === 'class-schedule-to-calendar' ? copy.timetable : copy.projectImageSoon}</small></div>}
       </div>
-      <div class="feature-project-copy"><span class="eyebrow">{copy.featured} / 001</span><div><h3>{featuredProject.title}</h3><p>{featuredProject.description[locale]}</p></div><span class="project-link">{copy.viewProject} <span aria-hidden="true">↗</span></span></div>
-    </a>
+      <div class="feature-project-copy"><span class="eyebrow">{copy.project} / {String(index + 1).padStart(3, '0')}</span><div><h3>{project.title}</h3><p>{project.description[locale]}</p></div><span class="project-link">{copy.viewProject} <span aria-hidden="true">↗</span></span></div>
+    </a>)}
+    </div>
   </section>
 
   <section class="home-closing" aria-label={copy.closing}>

@@ -10,6 +10,7 @@
 | 插画 Coming Soon 预告 | `public/images/illustration/coming-soon/` | `coming-soon-01.jpg`、`coming-soon-02.jpg`… |
 | 气象作品 | `public/images/weather/` | `weather-01.jpg`、`weather-02.jpg`… |
 | 项目封面 | `public/images/projects/` | Nimby-finance-tool 使用 `nimby.png` |
+| 课程表助手封面 | `public/images/projects/` | `class-schedule.jpg`、`class-schedule.png` 等 |
 
 ## 首页多图
 
@@ -32,5 +33,7 @@
 作品页与封面也会生成宽度最多 2400 px 的 WebP 浏览版本，保留原始比例与目录中的原文件。HEIC 图片需要先转换为 JPG、PNG 或 WebP；本次两张 HEIC 已转换为同名 JPG，原始 HEIC 仍保留，不会重复显示在作品页。
 
 Nimby-finance-tool 的项目封面使用 `projects/nimby.png`，也支持上面列出的其他扩展名。项目资料在 `src/data/site.ts` 中修改。
+
+课程表助手 `Class-schedule-to-Calendar` 的封面使用 `projects/class-schedule` 加支持的图片扩展名；没有图片时展示 PDF → ICS 文字封面。首页与项目页共用这些项目资料，课程表助手排在 NIMBY 下方。
 
 本地预览运行 `npm run dev`；图片尺寸在构建时读取，增加或替换图片后需要重新构建。还没有图片时页面正常显示占位背景。
