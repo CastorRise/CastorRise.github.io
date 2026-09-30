@@ -23,7 +23,7 @@ Place your own images in `public/images/`. The home hero automatically reads eve
 
 Edit work categories and project details in `src/data/site.ts`. The Notes page is a small placeholder; it can later be expanded with Astro Content Collections and Markdown content.
 
-The Illustration page has a Coming Soon section. Put preview images in `public/images/illustration/coming-soon/`; move them to `public/images/illustration/` when published. Illustration images use square frames with the full artwork visible. Rebuild and deploy after changes.
+The Illustration page has a Coming Soon section. Put preview images in `public/images/illustration/coming-soon/`; move them to `public/images/illustration/` when published. Gallery images keep their original aspect ratios, without background frames, and stack independently in each column. Illustration category covers remain square. Rebuild and deploy after changes.
 
 ## Languages
 
