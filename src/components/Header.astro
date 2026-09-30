@@ -14,7 +14,7 @@ const links = [
 
 <header class:list={['site-header', { 'is-over-hero': home }]} data-header data-home={home}>
   <div class="header-inner">
-    <a class="wordmark" href={localizedPath(locale, "/")} aria-label={"CastorRise — " + copy.home}>CastorRise<span class="wordmark-dot">.</span></a>
+    <a class="wordmark" href={localizedPath(locale, "/")} aria-label={"CastorRise — " + copy.home}>CastorRise</a>
     <nav class="desktop-nav" aria-label={copy.mainNav}>
       {links.map(({ label, href }) => (
         <a href={localizedPath(locale, href)} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>{label}</a>

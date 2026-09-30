@@ -20,13 +20,13 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
     <section class="page-intro" aria-labelledby="page-title">
       <a class="breadcrumb" href={url("/works")}><span aria-hidden="true">←</span> {copy.allWorks}</a>
       <p class="eyebrow">{copy.archive} / {categoryCopy.kicker}</p>
-      <h1 id="page-title">{categoryCopy.title}<span class="heading-period">.</span></h1>
+      <h1 id="page-title">{categoryCopy.title}</h1>
       <p>{categoryCopy.description}</p>
     </section>
     {category.slug === 'illustration' && (
       <section class="upcoming-section" aria-labelledby="coming-soon-title">
         <div class="collection-heading">
-          <h2 id="coming-soon-title">Coming Soon<span class="heading-period">.</span></h2>
+          <h2 id="coming-soon-title">Coming Soon</h2>
           <p>{copy.comingSoonDescription}</p>
         </div>
         <div class="gallery upcoming-grid" data-category="illustration">

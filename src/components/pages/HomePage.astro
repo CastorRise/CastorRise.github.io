@@ -74,7 +74,7 @@ const projectImage = await findImage('projects', featuredProject.imageStem);
 
   <section class="section projects-section" aria-labelledby="projects-title">
     <div class="section-heading">
-      <div><p class="eyebrow">02 / {copy.experiments}</p><h2 id="projects-title">{copy.projects}<span class="heading-period">.</span></h2></div>
+      <div><p class="eyebrow">02 / {copy.experiments}</p><h2 id="projects-title">{copy.projects}</h2></div>
       <a class="text-link" href={url("/projects")}>{copy.viewProjects} <span aria-hidden="true">↗</span></a>
     </div>
     <a class="feature-project" href={url("/projects")} aria-label={copy.viewProject + " — " + featuredProject.title}>

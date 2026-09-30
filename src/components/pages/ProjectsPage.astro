@@ -13,7 +13,7 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
 
 <BaseLayout locale={locale} title={copy.projects + " — CastorRise"} description={copy.projectsIntro}>
   <div class="page-shell">
-    <section class="page-intro" aria-labelledby="page-title"><p class="eyebrow">{copy.projectsKicker}</p><h1 id="page-title">{copy.projects}<span class="heading-period">.</span></h1><p>{copy.projectsIntro}</p></section>
+    <section class="page-intro" aria-labelledby="page-title"><p class="eyebrow">{copy.projectsKicker}</p><h1 id="page-title">{copy.projects}</h1><p>{copy.projectsIntro}</p></section>
     <div class="project-list">
       {projects.map((project, index) => (
         <article class="project-entry">
