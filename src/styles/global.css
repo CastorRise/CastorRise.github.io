@@ -95,9 +95,9 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .hero-image:not([src]) { display: none; }
 .hero-panel-index { position: absolute; z-index: 2; bottom: 52px; left: 52px; font-size: 11px; letter-spacing: .18em; }
 .hero-stage { position: sticky; top: 0; height: max(680px, 100svh); display: grid; place-items: center; }
-.hero-scrim { position: absolute; inset: 0; background: rgba(10, 18, 15, .24); pointer-events: none; }
-.hero-content { position: relative; z-index: 1; width: 100%; padding: 100px 24px; transform: translateY(-4%); }
-.hero-overline, .hero-disciplines, .hero-side-note, .scroll-cue { font-size: 10px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; }
+.hero-scrim { position: absolute; inset: 0; background: rgba(10, 18, 15, .44); pointer-events: none; }
+.hero-content { position: relative; z-index: 1; width: 100%; padding: 100px 24px; transform: translateY(-4%); text-shadow: 0 2px 16px rgba(0, 0, 0, .3); }
+.hero-overline, .hero-disciplines, .scroll-cue { font-size: 10px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; }
 .hero-overline { margin: 0 0 46px; opacity: .85; line-height: 1.9; }
 .hero h1 { margin: 0; font-size: clamp(48px, 7.5vw, 108px); font-weight: 450; letter-spacing: .025em; line-height: 1.2; }
 .hero-subtitle { margin: 34px 0 0; font-size: clamp(17px, 2vw, 24px); font-weight: 350; letter-spacing: .1em; line-height: 1.8; }
@@ -105,7 +105,6 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .hero-disciplines { margin: 48px 0 0; opacity: .85; letter-spacing: .18em; line-height: 2; }
 .scroll-cue { position: absolute; z-index: 1; bottom: 35px; left: 50%; display: flex; flex-direction: column; align-items: center; gap: 16px; transform: translateX(-50%); white-space: nowrap; opacity: .85; }
 .scroll-cue-line { width: 1px; height: 38px; background: currentColor; }
-.hero-side-note { position: absolute; right: 50px; bottom: 52px; opacity: .8; writing-mode: vertical-rl; }
 
 .section, .page-shell { width: min(100% - 104px, 1440px); margin: 0 auto; }
 .section { padding-top: clamp(112px, 12vw, 188px); }
@@ -191,8 +190,11 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .about-copy p { max-width: 400px; margin: 0 0 50px; color: var(--muted); font-size: clamp(16px, 1.5vw, 20px); line-height: 1.85; }
 
 .site-footer { border-top: 1px solid var(--line); }
-.footer-inner { width: min(100% - 104px, 1440px); min-height: 110px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--muted); font-size: 11px; }
-.footer-links { display: flex; gap: 38px; }
+.footer-inner { width: min(100% - 104px, 1440px); min-height: 110px; margin: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 32px 0; color: var(--muted); font-size: 11px; }
+.footer-identity { display: flex; flex-direction: column; gap: 8px; }
+.footer-note { font-size: 10px; letter-spacing: .08em; }
+.footer-links { display: flex; flex-wrap: wrap; column-gap: 30px; row-gap: 14px; }
+.footer-links a { display: inline-flex; align-items: center; white-space: nowrap; }
 .footer-links a:hover { color: var(--text); }
 .footer-links span { margin-left: 4px; }
 
@@ -221,7 +223,6 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .hero h1 { font-size: clamp(40px, 11.5vw, 70px); }
   .hero-subtitle { margin-top: 28px; font-size: 16px; }
   .hero-disciplines { max-width: 300px; margin: 40px auto 0; font-size: 9px; line-height: 1.8; }
-  .hero-side-note { display: none; }
   .scroll-cue { bottom: 25px; font-size: 9px; }
   .scroll-cue-line { height: 28px; }
   .section { padding-top: 100px; }
@@ -258,7 +259,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .about-art { min-height: 340px; }
   .about-copy { padding-top: 65px; }
   .footer-inner { min-height: 120px; align-items: start; justify-content: center; flex-direction: column; gap: 14px; padding: 29px 0; }
-  .footer-links { gap: 28px; }
+  .footer-links { column-gap: 28px; row-gap: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
