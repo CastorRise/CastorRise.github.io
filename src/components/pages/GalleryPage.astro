@@ -23,7 +23,7 @@ const images = await getGalleryImages(category.slug);
       <p>{categoryCopy.description}</p>
     </section>
     {images.length > 0 ? (
-      <div class="gallery" aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
+      <div class="gallery" data-category={category.slug} aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
         {images.map((image, index) => (
           <figure class="gallery-item">
             <img src={image.src} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} loading="lazy" decoding="async" />
