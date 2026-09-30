@@ -6,11 +6,11 @@ import ProjectsPage from '../../components/pages/ProjectsPage.astro';
 import NotesPage from '../../components/pages/NotesPage.astro';
 import AboutPage from '../../components/pages/AboutPage.astro';
 import { categories } from '../../data/site';
-import type { Locale } from '../../i18n';
+import { locales, type Locale } from '../../i18n';
 
 export function getStaticPaths() {
   const paths = ['', 'works', 'projects', 'notes', 'about', ...categories.map((category) => 'works/' + category.slug)];
-  return (['zh', 'ja'] as const).flatMap((locale) => paths.map((page) => ({
+  return locales.filter((locale) => locale !== 'en').flatMap((locale) => paths.map((page) => ({
     params: { lang: locale, page: page || undefined },
     props: { locale, page },
   })));

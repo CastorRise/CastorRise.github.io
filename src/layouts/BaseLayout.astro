@@ -34,7 +34,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <link rel="alternate" hreflang="x-default" href={new URL(currentPath, Astro.site).toString()} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={locale === "zh" ? "zh_CN" : locale === "ja" ? "ja_JP" : "en_US"} />
+    <meta property="og:locale" content={locale === "zh-tw" ? "zh_TW" : locale === "zh" ? "zh_CN" : locale === "ja" ? "ja_JP" : "en_US"} />
     <meta property="og:site_name" content="CastorRise" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -45,7 +45,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       try {
         const language = localStorage.getItem('language');
         const locale = document.documentElement.dataset.locale;
-        if (locale === 'en' && (language === 'zh' || language === 'ja')) {
+        if (locale === 'en' && ['zh', 'zh-tw', 'ja'].includes(language || '')) {
           window.location.replace('/' + language + window.location.pathname + window.location.search + window.location.hash);
         } else {
           localStorage.setItem('language', locale);

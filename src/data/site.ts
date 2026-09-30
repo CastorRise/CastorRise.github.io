@@ -22,6 +22,7 @@ export const projects = [
     description: {
       en: 'A lightweight analysis tool.',
       zh: '一个轻量的分析工具。',
+      'zh-tw': '一個輕量的分析工具。',
       ja: '軽量な分析ツール。',
     },
     imageStem: 'nimby',

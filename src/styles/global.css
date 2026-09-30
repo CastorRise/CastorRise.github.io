@@ -61,16 +61,16 @@ img { display: block; max-width: 100%; }
 .desktop-nav a:hover, .desktop-nav a[aria-current="page"] { opacity: 1; }
 .desktop-nav a[aria-current="page"]::after { content: ''; display: block; height: 1px; background: currentColor; margin-top: 5px; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
-.language-select { min-height: 44px; max-width: 85px; padding: 6px 4px; border: 0; border-radius: 0; background: transparent; color: inherit; font-size: 11px; cursor: pointer; }
+.language-select { min-height: 44px; max-width: 105px; padding: 6px 4px; border: 0; border-radius: 0; background: transparent; color: inherit; font-size: 11px; cursor: pointer; }
 .language-select option { background: var(--bg); color: var(--text); }
-html:lang(zh-CN) .section-heading h2, html:lang(zh-CN) .page-intro h1,
+html:lang(zh) .section-heading h2, html:lang(zh) .page-intro h1,
 html:lang(ja) .section-heading h2, html:lang(ja) .page-intro h1 { letter-spacing: -.025em; line-height: 1.3; }
-html:lang(zh-CN) em, html:lang(ja) em,
-html:lang(zh-CN) .image-placeholder span, html:lang(ja) .image-placeholder span,
-html:lang(zh-CN) .gallery-empty p, html:lang(ja) .gallery-empty p,
-html:lang(zh-CN) .notes-empty p, html:lang(ja) .notes-empty p { font-family: inherit; font-style: normal; }
+html:lang(zh) em, html:lang(ja) em,
+html:lang(zh) .image-placeholder span, html:lang(ja) .image-placeholder span,
+html:lang(zh) .gallery-empty p, html:lang(ja) .gallery-empty p,
+html:lang(zh) .notes-empty p, html:lang(ja) .notes-empty p { font-family: inherit; font-style: normal; }
 html:lang(ja) .page-intro h1 { font-size: clamp(42px, 6.2vw, 90px); }
-html:lang(zh-CN) .home-closing p, html:lang(ja) .home-closing p { font-family: inherit; font-style: normal; line-height: 1.6; }
+html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inherit; font-style: normal; line-height: 1.6; }
 .theme-toggle { display: flex; align-items: center; gap: 7px; border: 0; border-left: 1px solid currentColor; background: none; color: inherit; padding: 4px 0 4px 25px; margin-left: 8px; cursor: pointer; opacity: .76; transition: opacity .2s ease; }
 .theme-toggle:hover { opacity: 1; }
 .theme-icon { width: 15px; height: 15px; }

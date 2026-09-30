@@ -25,7 +25,7 @@ Edit work categories and project details in `src/data/site.ts`. The Notes page i
 
 ## Languages
 
-The header offers English, Simplified Chinese and Japanese. English keeps the original root URLs; Chinese uses `/zh/` and Japanese uses `/ja/`. Switching languages keeps the current page and saves the choice locally for future visits. Each language has static HTML, localized metadata and `hreflang` links. Edit translations in `src/i18n/index.ts`; edit shared page templates in `src/components/pages/`. Project descriptions live alongside project data in `src/data/site.ts`.
+The header offers English, Simplified Chinese, Traditional Chinese (Taiwan) and Japanese. English keeps the original root URLs; Simplified Chinese uses `/zh/`, Traditional Chinese (Taiwan) uses `/zh-tw/` and Japanese uses `/ja/`. Switching languages keeps the current page and saves the choice locally for future visits. Each language has static HTML, localized metadata and `hreflang` links. Edit translations in `src/i18n/index.ts`; edit shared page templates in `src/components/pages/`. Project descriptions live alongside project data in `src/data/site.ts`.
 
 ## Deployment
 

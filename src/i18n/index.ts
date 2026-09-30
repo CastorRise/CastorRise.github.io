@@ -1,7 +1,7 @@
-export const locales = ['en', 'zh', 'ja'] as const;
+export const locales = ['en', 'zh', 'zh-tw', 'ja'] as const;
 export type Locale = (typeof locales)[number];
-export const languageNames = { en: 'EN', zh: '中文', ja: '日本語' };
-export const languageTags = { en: 'en', zh: 'zh-CN', ja: 'ja' };
+export const languageNames = { en: 'EN', zh: '简体中文', 'zh-tw': '繁中（台灣）', ja: '日本語' };
+export const languageTags = { en: 'en', zh: 'zh-CN', 'zh-tw': 'zh-TW', ja: 'ja' };
 
 const en = {
   home: 'Home', works: 'Works', projects: 'Projects', notes: 'Notes', about: 'About',
@@ -66,6 +66,36 @@ export const messages: Record<Locale, typeof en> = {
       weather: { title: '气象', kicker: '仰望天空', description: '记录大气与变化的视觉片段。' },
     },
   },
+  'zh-tw': {
+    home: '首頁', works: '作品', projects: '專案', notes: '筆記', about: '關於',
+    language: '語言', mainNav: '主導覽', mobileNav: '行動版導覽',
+    openMenu: '開啟選單', closeMenu: '關閉選單', skip: '跳至主要內容', top: '回到頂端',
+    theme: '主題', system: '依照系統設定', light: '淺色', dark: '深色', switchTo: '切換為',
+    description: '攝影、插畫、氣象與程式碼。',
+    heroOverline: '看見與創作的個人空間', create: '創作', observe: '觀察', explore: '探索',
+    disciplines: '攝影 / 插畫 / 氣象 / 程式碼', aboutDisciplines: '攝影 · 插畫 · 氣象 · 程式碼',
+    scroll: '向下探索', scrollLabel: '捲動至精選作品', archiveNote: '始於 2026 — 個人記錄',
+    archive: '視覺記錄', selected: '精選', exploreWorks: '瀏覽所有作品',
+    experiments: '用心嘗試', viewProjects: '瀏覽專案', viewProject: '查看專案',
+    featured: '精選專案', project: '專案', projectCover: '專案封面',
+    imageSoon: '圖片待新增', projectImageSoon: '專案圖片待新增', collectionCover: '作品集封面',
+    closing: '結語', quoteFirst: '「我們留意的事物，', quoteLast: '終將成為記憶。」',
+    closingText: '細心觀察，用心創作。',
+    worksIntro: '收集所見、所畫，以及值得再次回望的瞬間。', allWorks: '所有作品',
+    gallery: '作品集', work: '作品', worksSoon: '作品將在這裡慢慢呈現。',
+    continueExploring: '繼續探索', nextCollection: '下一組作品',
+    projectsKicker: '讓想法成形', projectsIntro: '在好奇心與程式碼之間，做一些小小的嘗試。',
+    notesKicker: '片段與想法', notesEmpty: '這裡還沒有內容。',
+    notesIntro: '故事、觀察，以及日常的片刻，將在這裡留下記錄。',
+    notesDescription: '關於旅行、攝影、氣象、開發與日常生活的筆記。',
+    introduction: '簡單介紹', aboutMe: '關於我',
+    aboutText: '一個個人空間，記錄我的創作、觀察與回憶。',
+    categories: {
+      photography: { title: '攝影', kicker: '收集瞬間', description: '光線、地方，以及時間的流逝。' },
+      illustration: { title: '插畫', kicker: '描繪所見', description: '小小的想法、線條與形狀。' },
+      weather: { title: '氣象', kicker: '仰望天空', description: '記錄大氣與變化的視覺片段。' },
+    },
+  },
   ja: {
     home: 'ホーム', works: '作品', projects: 'プロジェクト', notes: 'ノート', about: '紹介',
     language: '言語', mainNav: 'メインナビゲーション', mobileNav: 'モバイルナビゲーション',
@@ -103,5 +133,5 @@ export function localizedPath(locale: Locale, path: string): string {
 }
 
 export function pagePath(path: string): string {
-  return path.replace(/^\/(zh|ja)(?=\/|$)/, '').replace(/\/$/, '') || '/';
+  return path.replace(/^\/(zh-tw|zh|ja)(?=\/|$)/, '').replace(/\/$/, '') || '/';
 }
