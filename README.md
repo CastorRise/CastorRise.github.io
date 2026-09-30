@@ -23,6 +23,10 @@ Place your own images in `public/images/`; see [the image guide](public/images/R
 
 Edit work categories and project details in `src/data/site.ts`. The Notes page is a small placeholder; it can later be expanded with Astro Content Collections and Markdown content.
 
+## Languages
+
+The header offers English, Simplified Chinese and Japanese. English keeps the original root URLs; Chinese uses `/zh/` and Japanese uses `/ja/`. Switching languages keeps the current page and saves the choice locally for future visits. Each language has static HTML, localized metadata and `hreflang` links. Edit translations in `src/i18n/index.ts`; edit shared page templates in `src/components/pages/`. Project descriptions live alongside project data in `src/data/site.ts`.
+
 ## Deployment
 
 The workflow at `.github/workflows/deploy.yml` installs dependencies, checks and builds the static site, then deploys `dist/` when `main` is pushed. In repository **Settings → Pages**, select **GitHub Actions** as the build and deployment source. This is a user Pages repository, so Astro uses `https://castorrise.github.io` as `site` and root-relative paths without a project `base`.

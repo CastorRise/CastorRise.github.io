@@ -1,9 +1,15 @@
+---
+import { messages, type Locale } from '../i18n';
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = messages[locale];
+---
 <footer class="site-footer">
   <div class="footer-inner">
     <span>© 2026 CastorRise</span>
     <div class="footer-links">
       <a href="https://github.com/CastorRise" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      <a href="#top">{copy.top} <span aria-hidden="true">↑</span></a>
     </div>
   </div>
 </footer>

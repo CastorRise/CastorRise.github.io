@@ -1,0 +1,15 @@
+---
+import { messages, type Locale } from '../../i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = messages[locale];
+---
+
+<BaseLayout locale={locale} title={copy.notes + " — CastorRise"} description={copy.notesDescription}>
+  <div class="page-shell notes-page">
+    <section class="page-intro" aria-labelledby="page-title"><p class="eyebrow">{copy.notesKicker}</p><h1 id="page-title">{copy.notes}<span class="heading-period">.</span></h1></section>
+    <div class="notes-empty"><span class="notes-empty-symbol" aria-hidden="true">✳</span><p>{copy.notesEmpty}</p><span>{copy.notesIntro}</span></div>
+  </div>
+</BaseLayout>

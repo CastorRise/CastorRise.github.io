@@ -1,36 +1,42 @@
 ---
-const { home = false, currentPath = '/' } = Astro.props;
+import { messages, locales, languageNames, localizedPath, type Locale } from '../i18n';
+interface Props { home?: boolean; currentPath?: string; locale?: Locale; }
+const { home = false, currentPath = '/', locale = 'en' } = Astro.props;
+const copy = messages[locale];
 const links = [
-  { label: 'Home', href: '/' },
-  { label: 'Works', href: '/works' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Notes', href: '/notes' },
-  { label: 'About', href: '/about' },
+  { label: copy.home, href: '/' },
+  { label: copy.works, href: '/works' },
+  { label: copy.projects, href: '/projects' },
+  { label: copy.notes, href: '/notes' },
+  { label: copy.about, href: '/about' },
 ];
 ---
 
 <header class:list={['site-header', { 'is-over-hero': home }]} data-header data-home={home}>
   <div class="header-inner">
-    <a class="wordmark" href="/" aria-label="CastorRise — Home">CastorRise<span class="wordmark-dot">.</span></a>
-    <nav class="desktop-nav" aria-label="Main navigation">
+    <a class="wordmark" href={localizedPath(locale, "/")} aria-label={"CastorRise — " + copy.home}>CastorRise<span class="wordmark-dot">.</span></a>
+    <nav class="desktop-nav" aria-label={copy.mainNav}>
       {links.map(({ label, href }) => (
-        <a href={href} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>{label}</a>
+        <a href={localizedPath(locale, href)} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>{label}</a>
       ))}
     </nav>
     <div class="header-actions">
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Theme: System. Switch to Light" title="Theme: System">
+      <select class="language-select" aria-label={copy.language} data-language-select>
+        {locales.map((language) => <option value={localizedPath(language, currentPath)} data-locale={language} selected={language === locale}>{languageNames[language]}</option>)}
+      </select>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label={copy.theme + ": " + copy.system + ". " + copy.switchTo + " " + copy.light} title={copy.theme + ": " + copy.system}>
         <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <span class="theme-label" data-theme-label>System</span>
+        <span class="theme-label" data-theme-label>{copy.system}</span>
       </button>
-      <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <button class="menu-toggle" type="button" data-menu-toggle aria-label={copy.openMenu} aria-controls="mobile-menu" aria-expanded="false">
         <span></span><span></span>
       </button>
     </div>
   </div>
-  <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" data-mobile-menu hidden>
+  <nav class="mobile-nav" id="mobile-menu" aria-label={copy.mobileNav} data-mobile-menu hidden>
     <div class="mobile-nav-inner">
       {links.map(({ label, href }, index) => (
-        <a href={href} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>
+        <a href={localizedPath(locale, href)} aria-current={currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`)) ? 'page' : undefined}>
           <span class="mobile-nav-index">0{index + 1}</span>{label}
         </a>
       ))}
@@ -39,6 +45,15 @@ const links = [
 </header>
 
 <script>
+  import { messages, type Locale } from '../i18n';
+  const locale = document.documentElement.dataset.locale as Locale;
+  const copy = messages[locale];
+  const languageSelect = document.querySelector<HTMLSelectElement>('[data-language-select]');
+  languageSelect?.addEventListener('change', () => {
+    const selected = languageSelect.selectedOptions[0];
+    try { localStorage.setItem('language', selected.dataset.locale || 'en'); } catch {}
+    window.location.assign(languageSelect.value + window.location.search + window.location.hash);
+  });
   const header = document.querySelector<HTMLElement>('[data-header]');
   const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
@@ -59,11 +74,11 @@ const links = [
       if (theme === 'system') localStorage.removeItem('theme');
       else localStorage.setItem('theme', theme);
     } catch {}
-    if (themeLabel) themeLabel.textContent = theme[0].toUpperCase() + theme.slice(1);
+    if (themeLabel) themeLabel.textContent = copy[theme];
     const next = themes[(themes.indexOf(theme) + 1) % themes.length];
     if (themeButton) {
-      themeButton.setAttribute('aria-label', `Theme: ${theme}. Switch to ${next}`);
-      themeButton.title = `Theme: ${theme}`;
+      themeButton.setAttribute('aria-label', copy.theme + ": " + copy[theme] + ". " + copy.switchTo + " " + copy[next]);
+      themeButton.title = copy.theme + ": " + copy[theme];
     }
   }
 
@@ -79,7 +94,7 @@ const links = [
   function closeMenu(restoreFocus = false) {
     if (!menuButton || !mobileMenu) return;
     menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.setAttribute('aria-label', 'Open menu');
+    menuButton.setAttribute('aria-label', copy.openMenu);
     mobileMenu.hidden = true;
     header?.classList.remove('menu-open');
     document.body.classList.remove('menu-visible');
@@ -92,7 +107,7 @@ const links = [
     if (!menuButton || !mobileMenu) return;
     const open = menuButton.getAttribute('aria-expanded') !== 'true';
     menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menuButton.setAttribute('aria-label', open ? copy.closeMenu : copy.openMenu);
     mobileMenu.hidden = !open;
     header?.classList.toggle('menu-open', open);
     document.body.classList.toggle('menu-visible', open);

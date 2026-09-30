@@ -1,0 +1,28 @@
+---
+import { messages, type Locale } from '../../i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/site';
+import { findImage } from '../../lib/images';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = messages[locale];
+
+const projectImages = await Promise.all(projects.map((project) => findImage('projects', project.imageStem)));
+---
+
+<BaseLayout locale={locale} title={copy.projects + " — CastorRise"} description={copy.projectsIntro}>
+  <div class="page-shell">
+    <section class="page-intro" aria-labelledby="page-title"><p class="eyebrow">{copy.projectsKicker}</p><h1 id="page-title">{copy.projects}<span class="heading-period">.</span></h1><p>{copy.projectsIntro}</p></section>
+    <div class="project-list">
+      {projects.map((project, index) => (
+        <article class="project-entry">
+          <div class="project-entry-media">
+            {projectImages[index] ? <img src={projectImages[index].src} width={projectImages[index].width} height={projectImages[index].height} alt={`${project.title} — ${copy.projectCover}`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="image-placeholder image-placeholder-project" aria-hidden="true"><span>{project.title}</span><small>{copy.projectImageSoon}</small></div>}
+          </div>
+          <div class="project-entry-copy"><span class="eyebrow">{copy.project} / {String(index + 1).padStart(3, '0')}</span><h2>{project.title}</h2><p>{project.description[locale]}</p></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+import { messages, type Locale } from '../../i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../WorkCard.astro';
+import { categories } from '../../data/site';
+import { findImage } from '../../lib/images';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = messages[locale];
+
+const images = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
+---
+
+<BaseLayout locale={locale} title={copy.works + " — CastorRise"} description={copy.description}>
+  <div class="page-shell">
+    <section class="page-intro" aria-labelledby="page-title">
+      <p class="eyebrow">{copy.archive} / 001 — 003</p>
+      <h1 id="page-title">{copy.selected} <em>{copy.works}</em></h1>
+      <p>{copy.worksIntro}</p>
+    </section>
+    <div class="works-grid works-page-grid">
+      {categories.map((category, index) => <WorkCard category={category} locale={locale} image={images[index]} index={index} />)}
+    </div>
+  </div>
+</BaseLayout>

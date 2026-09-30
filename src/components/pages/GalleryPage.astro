@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { categories } from '../../data/site';
+import { getGalleryImages } from '../../lib/images';
+import { messages, localizedPath, type Locale } from '../../i18n';
+import type { Category } from '../../data/site';
+
+
+interface Props { locale?: Locale; category: Category; }
+const { locale = 'en', category } = Astro.props;
+const copy = messages[locale];
+const categoryCopy = copy.categories[category.slug];
+const url = (path: string) => localizedPath(locale, path);
+const images = await getGalleryImages(category.slug);
+---
+
+<BaseLayout locale={locale} title={`${categoryCopy.title} — CastorRise`} description={`${categoryCopy.description} — CastorRise.`}>
+  <div class="page-shell gallery-page">
+    <section class="page-intro" aria-labelledby="page-title">
+      <a class="breadcrumb" href={url("/works")}><span aria-hidden="true">←</span> {copy.allWorks}</a>
+      <p class="eyebrow">{copy.archive} / {categoryCopy.kicker}</p>
+      <h1 id="page-title">{categoryCopy.title}<span class="heading-period">.</span></h1>
+      <p>{categoryCopy.description}</p>
+    </section>
+    {images.length > 0 ? (
+      <div class="gallery" aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
+        {images.map((image, index) => (
+          <figure class="gallery-item">
+            <img src={image.src} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} loading="lazy" decoding="async" />
+            <figcaption><span>0{index + 1}</span><span>{image.name}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    ) : (
+      <div class="gallery-empty"><div class="gallery-empty-mark" aria-hidden="true">{categoryCopy.title.slice(0, 1)}</div><p>{categoryCopy.title}</p><span>{copy.worksSoon}</span></div>
+    )}
+    <div class="next-collection"><span class="eyebrow">{copy.continueExploring}</span><a href={url(`/works/${categories[(categories.findIndex((item) => item.slug === category.slug) + 1) % categories.length].slug}`)}>{copy.nextCollection} <span aria-hidden="true">↗</span></a></div>
+  </div>
+</BaseLayout>

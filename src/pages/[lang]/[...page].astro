@@ -1,0 +1,23 @@
+---
+import HomePage from '../../components/pages/HomePage.astro';
+import WorksPage from '../../components/pages/WorksPage.astro';
+import GalleryPage from '../../components/pages/GalleryPage.astro';
+import ProjectsPage from '../../components/pages/ProjectsPage.astro';
+import NotesPage from '../../components/pages/NotesPage.astro';
+import AboutPage from '../../components/pages/AboutPage.astro';
+import { categories } from '../../data/site';
+import type { Locale } from '../../i18n';
+
+export function getStaticPaths() {
+  const paths = ['', 'works', 'projects', 'notes', 'about', ...categories.map((category) => 'works/' + category.slug)];
+  return (['zh', 'ja'] as const).flatMap((locale) => paths.map((page) => ({
+    params: { lang: locale, page: page || undefined },
+    props: { locale, page },
+  })));
+}
+const { locale, page } = Astro.props as { locale: Locale; page: string };
+const category = categories.find((item) => page === 'works/' + item.slug);
+const pages = { '': HomePage, works: WorksPage, projects: ProjectsPage, notes: NotesPage, about: AboutPage };
+const Page = pages[page as keyof typeof pages];
+---
+{category ? <GalleryPage locale={locale} category={category} /> : <Page locale={locale} />}

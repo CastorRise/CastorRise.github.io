@@ -2,32 +2,39 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { messages, locales, localizedPath, pagePath, languageTags, type Locale } from '../i18n';
 
 interface Props {
+  locale?: Locale;
   title?: string;
   description?: string;
   home?: boolean;
 }
 
+const { locale = 'en' } = Astro.props;
+const copy = messages[locale];
 const {
   title = 'CastorRise',
-  description = 'Photography, illustration, weather and code.',
+  description = copy.description,
   home = false,
 } = Astro.props;
-const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const currentPath = pagePath(Astro.url.pathname);
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
-<html lang="en" data-theme="system">
+<html lang={languageTags[locale]} data-locale={locale} data-theme="system">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f4f3ef" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {locales.map((language) => <link rel="alternate" hreflang={languageTags[language]} href={new URL(localizedPath(language, currentPath), Astro.site).toString()} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(currentPath, Astro.site).toString()} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locale === "zh" ? "zh_CN" : locale === "ja" ? "ja_JP" : "en_US"} />
     <meta property="og:site_name" content="CastorRise" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -36,15 +43,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <title>{title}</title>
     <script is:inline>
       try {
+        const language = localStorage.getItem('language');
+        const locale = document.documentElement.dataset.locale;
+        if (locale === 'en' && (language === 'zh' || language === 'ja')) {
+          window.location.replace('/' + language + window.location.pathname + window.location.search + window.location.hash);
+        } else {
+          localStorage.setItem('language', locale);
+        }
         const theme = localStorage.getItem('theme');
         if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
       } catch {}
     </script>
   </head>
   <body id="top">
-    <a class="skip-link" href="#main">Skip to content</a>
-    <Header {home} {currentPath} />
+    <a class="skip-link" href="#main">{copy.skip}</a>
+    <Header {home} {currentPath} {locale} />
     <main id="main"><slot /></main>
-    <Footer />
+    <Footer {locale} />
   </body>
 </html>

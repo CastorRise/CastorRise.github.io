@@ -1,21 +1,4 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import WorkCard from '../../components/WorkCard.astro';
-import { categories } from '../../data/site';
-import { findImage } from '../../lib/images';
-
-const images = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
+import Page from "../../components/pages/WorksPage.astro";
 ---
-
-<BaseLayout title="Works — CastorRise" description="Photography, illustration and weather by CastorRise.">
-  <div class="page-shell">
-    <section class="page-intro" aria-labelledby="page-title">
-      <p class="eyebrow">A visual archive / 001 — 003</p>
-      <h1 id="page-title">Selected <em>Works</em></h1>
-      <p>A quiet collection of what I see, draw and return to.</p>
-    </section>
-    <div class="works-grid works-page-grid">
-      {categories.map((category, index) => <WorkCard category={category} image={images[index]} index={index} />)}
-    </div>
-  </div>
-</BaseLayout>
+<Page />

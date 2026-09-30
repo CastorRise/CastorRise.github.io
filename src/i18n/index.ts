@@ -1,0 +1,107 @@
+export const locales = ['en', 'zh', 'ja'] as const;
+export type Locale = (typeof locales)[number];
+export const languageNames = { en: 'EN', zh: '中文', ja: '日本語' };
+export const languageTags = { en: 'en', zh: 'zh-CN', ja: 'ja' };
+
+const en = {
+  home: 'Home', works: 'Works', projects: 'Projects', notes: 'Notes', about: 'About',
+  language: 'Language', mainNav: 'Main navigation', mobileNav: 'Mobile navigation',
+  openMenu: 'Open menu', closeMenu: 'Close menu', skip: 'Skip to content', top: 'Back to top',
+  theme: 'Theme', system: 'System', light: 'Light', dark: 'Dark', switchTo: 'Switch to',
+  description: 'Photography, illustration, weather and code.',
+  heroOverline: 'A personal space for seeing and making', create: 'Create', observe: 'Observe', explore: 'Explore',
+  disciplines: 'Photography / Illustration / Weather / Code', aboutDisciplines: 'Photography · Illustration · Weather · Code',
+  scroll: 'Scroll to explore', scrollLabel: 'Scroll to selected works', archiveNote: 'EST. 2026 — A PERSONAL ARCHIVE',
+  archive: 'A visual archive', selected: 'Selected', exploreWorks: 'Explore all works',
+  experiments: 'Thoughtful experiments', viewProjects: 'View projects', viewProject: 'View project',
+  featured: 'Featured project', project: 'Project', projectCover: 'project cover',
+  imageSoon: 'Image coming soon', projectImageSoon: 'Project image coming soon', collectionCover: 'collection cover',
+  closing: 'Closing note', quoteFirst: '“The things we notice', quoteLast: 'become the things we remember.”',
+  closingText: 'Observe closely. Make thoughtfully.',
+  worksIntro: 'A quiet collection of what I see, draw and return to.', allWorks: 'All works',
+  gallery: 'gallery', work: 'work', worksSoon: 'Works will appear here soon.',
+  continueExploring: 'Continue exploring', nextCollection: 'Next collection',
+  projectsKicker: 'Ideas made tangible', projectsIntro: 'Small experiments at the intersection of curiosity and code.',
+  notesKicker: 'Fragments and thoughts', notesEmpty: 'Nothing here yet.',
+  notesIntro: 'Stories, observations and in-between moments will find a home here.',
+  notesDescription: 'Notes on travel, photography, weather, development and everyday life.',
+  introduction: 'A little introduction', aboutMe: 'About me',
+  aboutText: 'A personal space for things I create, observe and remember.',
+  categories: {
+    photography: { title: 'Photography', kicker: 'A collection of moments', description: 'Light, places and the passing of time.' },
+    illustration: { title: 'Illustration', kicker: 'Drawn observations', description: 'Small ideas, lines and forms.' },
+    weather: { title: 'Weather', kicker: 'Looking at the sky', description: 'A visual record of atmosphere and change.' },
+  },
+};
+
+export const messages: Record<Locale, typeof en> = {
+  en,
+  zh: {
+    home: '首页', works: '作品', projects: '项目', notes: '笔记', about: '关于',
+    language: '语言', mainNav: '主导航', mobileNav: '移动端导航',
+    openMenu: '打开菜单', closeMenu: '关闭菜单', skip: '跳到正文', top: '返回顶部',
+    theme: '主题', system: '跟随系统', light: '浅色', dark: '深色', switchTo: '切换为',
+    description: '摄影、插画、气象与代码。',
+    heroOverline: '看见与创造的个人空间', create: '创造', observe: '观察', explore: '探索',
+    disciplines: '摄影 / 插画 / 气象 / 代码', aboutDisciplines: '摄影 · 插画 · 气象 · 代码',
+    scroll: '向下探索', scrollLabel: '滚动到精选作品', archiveNote: '始于 2026 — 个人记录',
+    archive: '视觉记录', selected: '精选', exploreWorks: '浏览全部作品',
+    experiments: '用心尝试', viewProjects: '浏览项目', viewProject: '查看项目',
+    featured: '精选项目', project: '项目', projectCover: '项目封面',
+    imageSoon: '图片待添加', projectImageSoon: '项目图片待添加', collectionCover: '作品集封面',
+    closing: '结语', quoteFirst: '“我们留意的事物，', quoteLast: '终将成为记忆。”',
+    closingText: '细心观察，用心创造。',
+    worksIntro: '收集所见、所画，以及值得再次回望的瞬间。', allWorks: '全部作品',
+    gallery: '作品集', work: '作品', worksSoon: '作品将在这里慢慢呈现。',
+    continueExploring: '继续探索', nextCollection: '下一组作品',
+    projectsKicker: '让想法成形', projectsIntro: '在好奇心与代码之间，做一些小小的尝试。',
+    notesKicker: '片段与想法', notesEmpty: '这里还没有内容。',
+    notesIntro: '故事、观察，以及日常的片刻，将在这里留下记录。',
+    notesDescription: '关于旅行、摄影、气象、开发与日常生活的笔记。',
+    introduction: '简单介绍', aboutMe: '关于我',
+    aboutText: '一个个人空间，记录我的创造、观察与回忆。',
+    categories: {
+      photography: { title: '摄影', kicker: '收集瞬间', description: '光线、地方，以及时间的流逝。' },
+      illustration: { title: '插画', kicker: '描绘所见', description: '小小的想法、线条与形状。' },
+      weather: { title: '气象', kicker: '仰望天空', description: '记录大气与变化的视觉片段。' },
+    },
+  },
+  ja: {
+    home: 'ホーム', works: '作品', projects: 'プロジェクト', notes: 'ノート', about: '紹介',
+    language: '言語', mainNav: 'メインナビゲーション', mobileNav: 'モバイルナビゲーション',
+    openMenu: 'メニューを開く', closeMenu: 'メニューを閉じる', skip: '本文へ移動', top: 'ページの先頭へ',
+    theme: 'テーマ', system: 'システム', light: 'ライト', dark: 'ダーク', switchTo: '切り替え先',
+    description: '写真、イラスト、気象、そしてコード。',
+    heroOverline: '見ることと、つくることのための個人の場所', create: 'つくる', observe: '観察する', explore: '探求する',
+    disciplines: '写真 / イラスト / 気象 / コード', aboutDisciplines: '写真 · イラスト · 気象 · コード',
+    scroll: 'スクロールして見る', scrollLabel: '選んだ作品へスクロール', archiveNote: '2026 年から — 個人の記録',
+    archive: '視覚の記録', selected: '選んだ', exploreWorks: 'すべての作品を見る',
+    experiments: '丁寧な試み', viewProjects: 'プロジェクトを見る', viewProject: '詳細を見る',
+    featured: '注目のプロジェクト', project: 'プロジェクト', projectCover: 'プロジェクトの表紙',
+    imageSoon: '画像は準備中です', projectImageSoon: 'プロジェクト画像は準備中です', collectionCover: '作品集の表紙',
+    closing: 'おわりに', quoteFirst: '「気づいたものが、', quoteLast: 'やがて記憶になる。」',
+    closingText: 'よく見て、丁寧につくる。',
+    worksIntro: '見たもの、描いたもの、また振り返りたい瞬間を集めて。', allWorks: 'すべての作品',
+    gallery: 'ギャラリー', work: '作品', worksSoon: '作品は少しずつ、ここに並びます。',
+    continueExploring: '引き続き見る', nextCollection: '次の作品集',
+    projectsKicker: 'アイデアを形に', projectsIntro: '好奇心とコードが出会う、小さな試み。',
+    notesKicker: '断片と思い', notesEmpty: 'まだ何もありません。',
+    notesIntro: '物語、観察、日々の合間のひとときを、ここに。',
+    notesDescription: '旅、写真、気象、開発、そして日常のノート。',
+    introduction: '少しだけ、自己紹介', aboutMe: '私について',
+    aboutText: 'つくったもの、観察したこと、覚えておきたいもののための個人の場所。',
+    categories: {
+      photography: { title: '写真', kicker: '瞬間を集めて', description: '光、場所、そして時の流れ。' },
+      illustration: { title: 'イラスト', kicker: '描いた観察', description: '小さなアイデア、線、そして形。' },
+      weather: { title: '気象', kicker: '空を見上げて', description: '大気と変化を見つめる、視覚の記録。' },
+    },
+  },
+};
+
+export function localizedPath(locale: Locale, path: string): string {
+  return locale === 'en' ? path : '/' + locale + (path === '/' ? '/' : path);
+}
+
+export function pagePath(path: string): string {
+  return path.replace(/^\/(zh|ja)(?=\/|$)/, '').replace(/\/$/, '') || '/';
+}

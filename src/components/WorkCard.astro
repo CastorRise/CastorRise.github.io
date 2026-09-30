@@ -1,26 +1,30 @@
 ---
 import type { Category } from '../data/site';
 import type { LocalImage } from '../lib/images';
+import { messages, localizedPath, type Locale } from '../i18n';
 
 interface Props {
   category: Category;
+  locale?: Locale;
   image: LocalImage | null;
   index: number;
 }
-const { category, image, index } = Astro.props;
+const { category, image, index, locale = 'en' } = Astro.props;
+const copy = messages[locale];
+const categoryCopy = copy.categories[category.slug];
 ---
 
-<a class:list={['work-card', `work-card-${index + 1}`]} href={`/works/${category.slug}`}>
+<a class:list={['work-card', `work-card-${index + 1}`]} href={localizedPath(locale, "/works/" + category.slug)}>
   <div class="work-card-media" data-category={category.slug}>
     {image ? (
-      <img src={image.src} width={image.width} height={image.height} alt={`${category.title} collection cover`} loading="lazy" decoding="async" />
+      <img src={image.src} width={image.width} height={image.height} alt={`${categoryCopy.title} — ${copy.collectionCover}`} loading="lazy" decoding="async" />
     ) : (
-      <div class="image-placeholder" aria-hidden="true"><span>{category.title}</span><small>Image coming soon</small></div>
+      <div class="image-placeholder" aria-hidden="true"><span>{categoryCopy.title}</span><small>{copy.imageSoon}</small></div>
     )}
     <span class="card-arrow" aria-hidden="true">↗</span>
   </div>
   <div class="work-card-caption">
-    <div><span class="eyebrow">0{index + 1} / {category.kicker}</span><h3>{category.title}</h3></div>
+    <div><span class="eyebrow">0{index + 1} / {categoryCopy.kicker}</span><h3>{categoryCopy.title}</h3></div>
     <span class="caption-arrow" aria-hidden="true">↗</span>
   </div>
 </a>

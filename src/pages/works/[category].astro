@@ -1,36 +1,9 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import Page from '../../components/pages/GalleryPage.astro';
 import { categories } from '../../data/site';
-import { getGalleryImages } from '../../lib/images';
-
 export function getStaticPaths() {
   return categories.map((category) => ({ params: { category: category.slug }, props: { category } }));
 }
-
 const { category } = Astro.props;
-const images = await getGalleryImages(category.slug);
 ---
-
-<BaseLayout title={`${category.title} — CastorRise`} description={`${category.description} — CastorRise.`}>
-  <div class="page-shell gallery-page">
-    <section class="page-intro" aria-labelledby="page-title">
-      <a class="breadcrumb" href="/works"><span aria-hidden="true">←</span> All works</a>
-      <p class="eyebrow">A visual archive / {category.kicker}</p>
-      <h1 id="page-title">{category.title}<span class="heading-period">.</span></h1>
-      <p>{category.description}</p>
-    </section>
-    {images.length > 0 ? (
-      <div class="gallery" aria-label={`${category.title} gallery`}>
-        {images.map((image, index) => (
-          <figure class="gallery-item">
-            <img src={image.src} width={image.width} height={image.height} alt={`${category.title} work ${index + 1}`} loading="lazy" decoding="async" />
-            <figcaption><span>0{index + 1}</span><span>{image.name}</span></figcaption>
-          </figure>
-        ))}
-      </div>
-    ) : (
-      <div class="gallery-empty"><div class="gallery-empty-mark" aria-hidden="true">{category.title.slice(0, 1)}</div><p>{category.title}</p><span>Works will appear here soon.</span></div>
-    )}
-    <div class="next-collection"><span class="eyebrow">Continue exploring</span><a href={`/works/${categories[(categories.findIndex((item) => item.slug === category.slug) + 1) % categories.length].slug}`}>Next collection <span aria-hidden="true">↗</span></a></div>
-  </div>
-</BaseLayout>
+<Page category={category} />
