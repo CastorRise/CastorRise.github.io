@@ -33,6 +33,13 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
       </div>)}
       <script is:inline>
         const hero = document.currentScript.closest('[data-hero-images]');
+        // Embedded mobile browsers can expose a layout viewport taller than the visible page.
+        const syncHeroViewport = () => {
+          hero.style.setProperty('--hero-viewport-height', `${window.visualViewport?.height ?? window.innerHeight}px`);
+        };
+        syncHeroViewport();
+        window.addEventListener('resize', syncHeroViewport);
+        window.visualViewport?.addEventListener('resize', syncHeroViewport);
         const images = JSON.parse(hero.dataset.heroImages);
         // Shuffle once per page load, then use three distinct photos in the scroll panels.
         for (let i = images.length - 1; i > 0; i--) {
@@ -153,6 +160,7 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
 
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
+    window.visualViewport?.addEventListener('resize', scheduleUpdate);
     reducedMotion.addEventListener('change', scheduleUpdate);
   }
 </script>

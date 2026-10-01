@@ -24,7 +24,7 @@ const updates = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
     <section class="about-updates" id="updates" aria-labelledby="updates-title">
       <div class="section-heading"><div><p class="eyebrow">{copy.changelogKicker} / 002</p><h2 id="updates-title">{copy.changelog}</h2></div></div>
       <ol class="changelog-list" role="list">
-        {updates.map((update) => (
+        {updates.slice(0, 1).map((update) => (
           <li class="changelog-entry">
             <time datetime={update.date}>{update.date.replaceAll('-', '.')}</time>
             <div>
@@ -36,6 +36,26 @@ const updates = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
           </li>
         ))}
       </ol>
+      {updates.length > 1 && <details class="changelog-history">
+        <summary>
+          <span class="history-show">{copy.changelogOlder}</span>
+          <span class="history-hide">{copy.changelogLess}</span>
+          <span class="history-chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <ol class="changelog-list" role="list" start="2">
+          {updates.slice(1).map((update) => (
+            <li class="changelog-entry">
+              <time datetime={update.date}>{update.date.replaceAll('-', '.')}</time>
+              <div>
+                <h3>{update.content[locale].title}</h3>
+                <ul class="changelog-changes" role="list">
+                  {update.content[locale].changes.map((change) => <li>{change}</li>)}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </details>}
     </section>
   </div>
 </BaseLayout>

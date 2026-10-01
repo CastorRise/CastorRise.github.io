@@ -211,6 +211,14 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .changelog-entry h3 { margin: 0 0 22px; font-size: clamp(21px, 2vw, 28px); font-weight: 400; line-height: 1.6; }
 .changelog-changes { max-width: 860px; color: var(--muted); font-size: 15px; line-height: 1.9; }
 .changelog-changes li + li { margin-top: 12px; }
+.changelog-history summary { display: flex; align-items: center; gap: 16px; width: fit-content; padding: 24px 0; color: var(--muted); font-size: 13px; cursor: pointer; list-style: none; }
+.changelog-history summary::-webkit-details-marker { display: none; }
+.changelog-history summary:hover { color: var(--text); }
+.changelog-history:not([open]) > .changelog-list { display: none; }
+.history-chevron { display: inline-block; transition: transform .2s ease; }
+.history-hide, .changelog-history[open] .history-show { display: none; }
+.changelog-history[open] .history-hide { display: inline; }
+.changelog-history[open] .history-chevron { transform: rotate(180deg); }
 
 .site-footer { border-top: 1px solid var(--line); }
 .footer-inner { width: min(100% - 104px, 1440px); min-height: 110px; margin: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 32px 0; color: var(--muted); font-size: 11px; }
@@ -237,15 +245,15 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .theme-label { display: none; }
   .theme-icon { width: 19px; height: 19px; }
   .wordmark { font-size: 18px; }
-  .hero { height: calc(var(--hero-count) * max(600px, 100svh)); }
-  .hero-panel, .hero-stage { height: max(600px, 100svh); }
+  .hero { --hero-panel-height: min(100svh, var(--hero-viewport-height, 100svh)); height: calc(var(--hero-count) * var(--hero-panel-height)); }
+  .hero-panel, .hero-stage { height: var(--hero-panel-height); }
   .hero-panel-index { left: 24px; bottom: 32px; font-size: 10px; }
   .hero-content { transform: translateY(calc(-5% + var(--hero-copy-offset, 0px))); }
   .hero-overline { margin-bottom: 36px; font-size: 9px; }
   .hero h1 { font-size: clamp(40px, 11.5vw, 70px); }
   .hero-subtitle { margin-top: 28px; font-size: 16px; }
   .hero-disciplines { max-width: 300px; margin: 40px auto 0; font-size: 9px; line-height: 1.8; }
-  .scroll-cue { bottom: 25px; font-size: 9px; }
+  .scroll-cue { bottom: calc(32px + env(safe-area-inset-bottom, 0px)); font-size: 9px; }
   .scroll-cue-line { height: 28px; }
   .section { padding-top: 100px; }
   .section-heading { align-items: start; flex-direction: column; gap: 24px; margin-bottom: 34px; }

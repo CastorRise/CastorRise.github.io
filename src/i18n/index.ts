@@ -28,7 +28,7 @@ const en = {
   notesIntro: 'Stories, observations and in-between moments will find a home here.',
   notesDescription: 'Notes on travel, photography, weather, development and everyday life.',
   introduction: 'A little introduction', aboutMe: 'About me',
-  changelog: 'Changelog', changelogKicker: 'Site notes',
+  changelog: 'Changelog', changelogKicker: 'Site notes', changelogOlder: 'Show earlier updates', changelogLess: 'Hide earlier updates',
   aboutText: 'A personal space for things I create, observe and remember.',
   categories: {
     photography: { title: 'Photography', kicker: 'A collection of moments', description: 'Light, places and the passing of time.' },
@@ -64,7 +64,7 @@ export const messages: Record<Locale, typeof en> = {
     notesIntro: '故事、观察，以及日常的片刻，将在这里留下记录。',
     notesDescription: '关于旅行、摄影、气象、开发与日常生活的笔记。',
     introduction: '简单介绍', aboutMe: '关于我',
-    changelog: '更新日志', changelogKicker: '网站记录',
+    changelog: '更新日志', changelogKicker: '网站记录', changelogOlder: '查看历史更新', changelogLess: '收起历史更新',
     aboutText: '一个个人空间，记录我的创造、观察与回忆。',
     categories: {
       photography: { title: '摄影', kicker: '收集瞬间', description: '光线、地方，以及时间的流逝。' },
@@ -97,7 +97,7 @@ export const messages: Record<Locale, typeof en> = {
     notesIntro: '故事、觀察，以及日常的片刻，將在這裡留下記錄。',
     notesDescription: '關於旅行、攝影、氣象、開發與日常生活的筆記。',
     introduction: '簡單介紹', aboutMe: '關於我',
-    changelog: '更新紀錄', changelogKicker: '網站記錄',
+    changelog: '更新紀錄', changelogKicker: '網站記錄', changelogOlder: '查看歷史更新', changelogLess: '收合歷史更新',
     aboutText: '一個個人空間，記錄我的創作、觀察與回憶。',
     categories: {
       photography: { title: '攝影', kicker: '收集瞬間', description: '光線、地方，以及時間的流逝。' },
@@ -130,7 +130,7 @@ export const messages: Record<Locale, typeof en> = {
     notesIntro: '物語、観察、日々の合間のひとときを、ここに。',
     notesDescription: '旅、写真、気象、開発、そして日常のノート。',
     introduction: '少しだけ、自己紹介', aboutMe: '私について',
-    changelog: '更新履歴', changelogKicker: 'サイトの記録',
+    changelog: '更新履歴', changelogKicker: 'サイトの記録', changelogOlder: '以前の更新を表示', changelogLess: '以前の更新を閉じる',
     aboutText: 'つくったもの、観察したこと、覚えておきたいもののための個人の場所。',
     categories: {
       photography: { title: '写真', kicker: '瞬間を集めて', description: '光、場所、そして時の流れ。' },
