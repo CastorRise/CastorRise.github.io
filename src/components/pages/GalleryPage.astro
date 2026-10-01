@@ -6,6 +6,7 @@ import { getGalleryImages, gallerySizes, coverSizes } from '../../lib/images';
 import { messages, localizedPath, type Locale } from '../../i18n';
 import type { Category } from '../../data/site';
 import { illustrationReleaseDates } from '../../data/releases';
+import { getImageDescription } from '../../data/image-descriptions';
 
 
 interface Props { locale?: Locale; category: Category; }
@@ -16,7 +17,8 @@ const url = (path: string) => localizedPath(locale, path);
 const images = await getGalleryImages(category.slug);
 const isWideImage = (image: (typeof images)[number]) =>
   (category.slug === 'photography' || category.slug === 'weather') && image.aspectRatio > 16 / 9;
-const orderedImages = [...images.filter(isWideImage), ...images.filter((image) => !isWideImage(image))];
+const orderedImages = [...images.filter(isWideImage), ...images.filter((image) => !isWideImage(image))]
+  .map((image) => ({ ...image, description: getImageDescription(category.slug, image.stem, locale) }));
 const upcomingImages = category.slug === 'illustration' ? await getGalleryImages('illustration/coming-soon') : [];
 ---
 
@@ -55,7 +57,7 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
         {orderedImages.map((image, index) => (
           <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]}>
             <ScrollImage {image} sizes={isWideImage(image) ? coverSizes : gallerySizes} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} />
-            <figcaption><span>{String(index + 1).padStart(2, '0')}</span><span>{image.name}</span></figcaption>
+            <figcaption><span class="image-description">{image.description}</span><span class="image-filename">{image.name}</span></figcaption>
           </figure>
         ))}
       </div>

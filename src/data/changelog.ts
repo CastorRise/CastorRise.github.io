@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-10-01',
     content: {
+      zh: { title: '作品图片简介', changes: ['摄影、已发布插画和气象图片支持自定义简介，按文件名填写；没有简介时左下角留空。'] },
+      'zh-tw': { title: '作品圖片簡介', changes: ['攝影、已發布插畫與氣象圖片支援自訂簡介，依檔名填寫；沒有簡介時左下角留空。'] },
+      en: { title: 'Image descriptions', changes: ['Photography, published illustrations and weather images support optional descriptions keyed by filename; the lower-left caption stays blank when none is provided.'] },
+      ja: { title: '作品画像の紹介文', changes: ['写真、公開済みイラスト、気象画像にファイル名で指定する紹介文を追加可能に。未入力の場合は左下を空欄で表示。'] },
+    },
+  },
+  {
+    date: '2026-10-01',
+    content: {
       zh: { title: '首页提示与更新日志展示调整', changes: ['修复电脑和手机较矮窗口中“向下探索”文字被裁切的问题。', '更新日志默认展示最近三条，较早记录可在下方展开。'] },
       'zh-tw': { title: '首頁提示與更新紀錄顯示調整', changes: ['修正電腦與手機較矮視窗中「向下探索」文字被裁切的問題。', '更新紀錄預設顯示最近三則，較早紀錄可在下方展開。'] },
       en: { title: 'Home scroll cue and changelog display', changes: ['Fixed the clipped scroll cue in shorter desktop and mobile viewports.', 'The three latest updates are shown by default, with earlier entries expandable below.'] },
