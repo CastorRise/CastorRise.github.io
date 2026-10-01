@@ -94,3 +94,61 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
     <span>{copy.closingText}</span>
   </section>
 </BaseLayout>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const stage = hero?.querySelector<HTMLElement>('.hero-stage');
+  const content = hero?.querySelector<HTMLElement>('.hero-content');
+
+  if (hero && stage && content) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let previousScrollY = window.scrollY;
+    let scrollingDown = true;
+    let frame = 0;
+
+    function update() {
+      frame = 0;
+      if (reducedMotion.matches || !scrollingDown) {
+        content!.style.removeProperty('--hero-copy-offset');
+        return;
+      }
+
+      const stageHeight = stage!.offsetHeight;
+      const end = hero!.offsetHeight - stageHeight;
+      const distance = Math.min(240, stageHeight * .24);
+      const travelled = -hero!.getBoundingClientRect().top;
+      const progress = Math.max(0, Math.min(1, (travelled - end + distance) / distance));
+
+      // Move only upward and ease to a fixed resting position; never compensate downward or rebound.
+      // Scroll position alone controls the copy: it never keeps moving after scrolling stops.
+      if (progress > 0) {
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const lift = Math.min(36, stageHeight * .045);
+        content!.style.setProperty('--hero-copy-offset', `${-lift * eased}px`);
+      } else {
+        content!.style.removeProperty('--hero-copy-offset');
+      }
+    }
+
+    function scheduleUpdate() {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    }
+
+    function handleScroll() {
+      scrollingDown = window.scrollY >= previousScrollY;
+      previousScrollY = window.scrollY;
+      if (!scrollingDown) {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        content!.style.removeProperty('--hero-copy-offset');
+        return;
+      }
+      scheduleUpdate();
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    reducedMotion.addEventListener('change', scheduleUpdate);
+  }
+</script>
