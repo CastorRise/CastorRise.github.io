@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-10-01',
     content: {
+      zh: { title: '首页提示与更新日志展示调整', changes: ['修复电脑和手机较矮窗口中“向下探索”文字被裁切的问题。', '更新日志默认展示最近三条，较早记录可在下方展开。'] },
+      'zh-tw': { title: '首頁提示與更新紀錄顯示調整', changes: ['修正電腦與手機較矮視窗中「向下探索」文字被裁切的問題。', '更新紀錄預設顯示最近三則，較早紀錄可在下方展開。'] },
+      en: { title: 'Home scroll cue and changelog display', changes: ['Fixed the clipped scroll cue in shorter desktop and mobile viewports.', 'The three latest updates are shown by default, with earlier entries expandable below.'] },
+      ja: { title: 'ホームのスクロール案内と更新履歴の表示調整', changes: ['PC とモバイルの高さが小さい画面でスクロール案内が切れる問題を修正。', '最新の更新を 3 件表示し、それ以前の履歴は下で展開できるように変更。'] },
+    },
+  },
+  {
+    date: '2026-10-01',
+    content: {
       zh: { title: '手机端图片加载修复', changes: ['调整摄影与气象的手机排版，并为滚动加载加入屏幕位置检查，避免第 4 张等图片漏加载。'] },
       'zh-tw': { title: '行動版圖片載入修正', changes: ['調整攝影與氣象的行動版排版，並為捲動載入加入畫面位置檢查，避免第 4 張等圖片漏載入。'] },
       en: { title: 'Mobile image loading fix', changes: ['Adjusted mobile photography and weather layouts and added viewport checks to prevent images, including the fourth one, from being skipped during scroll loading.'] },

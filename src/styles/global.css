@@ -93,15 +93,15 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .mobile-nav a[aria-current="page"] { color: var(--muted); }
 .mobile-nav-index { width: 20px; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: 0; }
 
-.hero { position: relative; height: calc(var(--hero-count) * max(680px, 100svh)); background: #565e57; color: #fff; text-align: center; }
+.hero { --hero-panel-height: min(100svh, var(--hero-viewport-height, 100svh)); position: relative; height: calc(var(--hero-count) * var(--hero-panel-height)); background: #565e57; color: #fff; text-align: center; }
 .hero-visuals { position: absolute; inset: 0; }
-.hero-panel { position: relative; height: max(680px, 100svh); overflow: hidden; background: #565e57; }
+.hero-panel { position: relative; height: var(--hero-panel-height); overflow: hidden; background: #565e57; }
 .hero-panel-placeholder:nth-child(3n + 2) { background: #6c777c; }
 .hero-panel-placeholder:nth-child(3n + 3) { background: #7a7165; }
 .hero-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-image:not([src]):not([data-deferred-image]) { display: none; }
 .hero-panel-index { position: absolute; z-index: 2; bottom: 52px; left: 52px; font-size: 11px; letter-spacing: .18em; }
-.hero-stage { position: sticky; top: 0; height: max(680px, 100svh); display: grid; place-items: center; }
+.hero-stage { position: sticky; top: 0; height: var(--hero-panel-height); display: grid; place-items: center; }
 .hero-scrim { position: absolute; inset: 0; background: rgba(10, 18, 15, .44); pointer-events: none; }
 .hero-content { position: relative; z-index: 1; width: 100%; padding: 100px 24px; transform: translateY(calc(-4% + var(--hero-copy-offset, 0px))); text-shadow: 0 2px 16px rgba(0, 0, 0, .3); }
 .hero-overline, .hero-disciplines, .scroll-cue { font-size: 10px; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; }
@@ -245,8 +245,6 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .theme-label { display: none; }
   .theme-icon { width: 19px; height: 19px; }
   .wordmark { font-size: 18px; }
-  .hero { --hero-panel-height: min(100svh, var(--hero-viewport-height, 100svh)); height: calc(var(--hero-count) * var(--hero-panel-height)); }
-  .hero-panel, .hero-stage { height: var(--hero-panel-height); }
   .hero-panel-index { left: 24px; bottom: 32px; font-size: 10px; }
   .hero-content { transform: translateY(calc(-5% + var(--hero-copy-offset, 0px))); }
   .hero-overline { margin-bottom: 36px; font-size: 9px; }

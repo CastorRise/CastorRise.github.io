@@ -10,6 +10,7 @@ const { locale = 'en' } = Astro.props;
 const copy = messages[locale];
 const image = await findImage('about', 'about');
 const updates = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
+const visibleUpdateCount = 3;
 ---
 
 <BaseLayout locale={locale} title={copy.about + " — CastorRise"} description={copy.description}>
@@ -24,7 +25,7 @@ const updates = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
     <section class="about-updates" id="updates" aria-labelledby="updates-title">
       <div class="section-heading"><div><p class="eyebrow">{copy.changelogKicker} / 002</p><h2 id="updates-title">{copy.changelog}</h2></div></div>
       <ol class="changelog-list" role="list">
-        {updates.slice(0, 1).map((update) => (
+        {updates.slice(0, visibleUpdateCount).map((update) => (
           <li class="changelog-entry">
             <time datetime={update.date}>{update.date.replaceAll('-', '.')}</time>
             <div>
@@ -36,14 +37,14 @@ const updates = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
           </li>
         ))}
       </ol>
-      {updates.length > 1 && <details class="changelog-history">
+      {updates.length > visibleUpdateCount && <details class="changelog-history">
         <summary>
           <span class="history-show">{copy.changelogOlder}</span>
           <span class="history-hide">{copy.changelogLess}</span>
           <span class="history-chevron" aria-hidden="true">⌄</span>
         </summary>
-        <ol class="changelog-list" role="list" start="2">
-          {updates.slice(1).map((update) => (
+        <ol class="changelog-list" role="list" start={visibleUpdateCount + 1}>
+          {updates.slice(visibleUpdateCount).map((update) => (
             <li class="changelog-entry">
               <time datetime={update.date}>{update.date.replaceAll('-', '.')}</time>
               <div>
