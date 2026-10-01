@@ -262,7 +262,8 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .page-intro h1 { font-size: clamp(55px, 14vw, 82px); }
   .breadcrumb { margin-bottom: 52px; }
   .gallery-page .page-intro { padding-top: 48px; }
-  .gallery { columns: 1; }
+  .gallery { columns: auto; }
+  .gallery-item-wide { column-span: none; }
   .gallery-item { margin-bottom: 48px; }
   .gallery-empty { min-height: 360px; }
   .next-collection { margin-top: 70px; }

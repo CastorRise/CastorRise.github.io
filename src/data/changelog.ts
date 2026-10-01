@@ -7,6 +7,15 @@ interface Update {
 
 export const changelog: Update[] = [
   {
+    date: '2026-10-01',
+    content: {
+      zh: { title: '手机端图片加载修复', changes: ['调整摄影与气象的手机排版，并为滚动加载加入屏幕位置检查，避免第 4 张等图片漏加载。'] },
+      'zh-tw': { title: '行動版圖片載入修正', changes: ['調整攝影與氣象的行動版排版，並為捲動載入加入畫面位置檢查，避免第 4 張等圖片漏載入。'] },
+      en: { title: 'Mobile image loading fix', changes: ['Adjusted mobile photography and weather layouts and added viewport checks to prevent images, including the fourth one, from being skipped during scroll loading.'] },
+      ja: { title: 'モバイルでの画像読み込みを修正', changes: ['写真と気象のモバイル表示を調整し、画面上の位置確認を追加して、4 枚目などの画像の読み込み漏れを防止。'] },
+    },
+  },
+  {
     date: '2026-09-30',
     content: {
       zh: { title: '摄影作品更新', changes: ['新增 4 张摄影作品，作品集现共 14 张照片。'] },
