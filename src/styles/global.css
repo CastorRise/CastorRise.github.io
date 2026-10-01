@@ -110,7 +110,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .hero-subtitle { margin: 34px 0 0; font-size: clamp(17px, 2vw, 24px); font-weight: 350; letter-spacing: .1em; line-height: 1.8; }
 .hero-subtitle span { padding: 0 12px; opacity: .8; }
 .hero-disciplines { margin: 48px 0 0; opacity: .85; letter-spacing: .18em; line-height: 2; }
-.scroll-cue { position: absolute; z-index: 1; bottom: 35px; left: 50%; display: flex; flex-direction: column; align-items: center; gap: 16px; transform: translateX(-50%); white-space: nowrap; opacity: .85; }
+.scroll-cue { position: absolute; z-index: 1; bottom: 35px; left: 50%; display: flex; flex-direction: column; align-items: center; gap: 16px; transform: translate(-50%, var(--hero-copy-offset, 0px)); white-space: nowrap; opacity: .85; }
 .scroll-cue-line { width: 1px; height: 38px; background: currentColor; }
 
 .section, .page-shell { width: min(100% - 104px, 1440px); margin: 0 auto; }

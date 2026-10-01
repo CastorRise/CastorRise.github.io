@@ -98,36 +98,52 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
 <script>
   const hero = document.querySelector<HTMLElement>('.hero');
   const stage = hero?.querySelector<HTMLElement>('.hero-stage');
-  const content = hero?.querySelector<HTMLElement>('.hero-content');
 
-  if (hero && stage && content) {
+  if (hero && stage) {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let previousScrollY = window.scrollY;
     let scrollingDown = true;
     let frame = 0;
+    let lastProgress = 0;
+    let offset = 0;
+    let anchorProgress = 0;
+    let anchorOffset = 0;
 
     function update() {
       frame = 0;
-      if (reducedMotion.matches || !scrollingDown) {
-        content!.style.removeProperty('--hero-copy-offset');
-        return;
-      }
-
       const stageHeight = stage!.offsetHeight;
       const end = hero!.offsetHeight - stageHeight;
       const distance = Math.min(240, stageHeight * .24);
       const travelled = -hero!.getBoundingClientRect().top;
       const progress = Math.max(0, Math.min(1, (travelled - end + distance) / distance));
-
-      // Move only upward and ease to a fixed resting position; never compensate downward or rebound.
-      // Scroll position alone controls the copy: it never keeps moving after scrolling stops.
-      if (progress > 0) {
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const lift = Math.min(36, stageHeight * .045);
-        content!.style.setProperty('--hero-copy-offset', `${-lift * eased}px`);
-      } else {
-        content!.style.removeProperty('--hero-copy-offset');
+      const nextDirection = window.scrollY === previousScrollY ? scrollingDown : window.scrollY > previousScrollY;
+      if (nextDirection !== scrollingDown) {
+        // Start each direction change at the last rendered position, never at an unrelated curve value.
+        anchorProgress = lastProgress;
+        anchorOffset = offset;
+        scrollingDown = nextDirection;
       }
+      previousScrollY = window.scrollY;
+      const lift = Math.min(36, stageHeight * .045);
+
+      if (reducedMotion.matches || progress === 0) {
+        offset = anchorOffset = anchorProgress = 0;
+      } else if (progress === 1) {
+        offset = anchorOffset = -lift;
+        anchorProgress = 1;
+      } else if (scrollingDown) {
+        const remaining = 1 - anchorProgress;
+        const fraction = remaining > 0 ? Math.max(0, Math.min(1, (progress - anchorProgress) / remaining)) : 1;
+        const eased = 1 - Math.pow(1 - fraction, 3);
+        offset = anchorOffset + (-lift - anchorOffset) * eased;
+      } else {
+        // Upward scrolling is linear, while preserving continuity with the downward ease-out.
+        const fraction = anchorProgress > 0 ? Math.max(0, Math.min(1, progress / anchorProgress)) : 0;
+        offset = anchorOffset * fraction;
+      }
+      lastProgress = progress;
+      // Both the copy and scroll cue inherit this value; there is no time-based motion after scrolling stops.
+      stage!.style.setProperty('--hero-copy-offset', `${offset}px`);
     }
 
     function scheduleUpdate() {
@@ -135,19 +151,7 @@ const projectImages = await Promise.all(projects.map((project) => findImage('pro
       frame = requestAnimationFrame(update);
     }
 
-    function handleScroll() {
-      scrollingDown = window.scrollY >= previousScrollY;
-      previousScrollY = window.scrollY;
-      if (!scrollingDown) {
-        if (frame) cancelAnimationFrame(frame);
-        frame = 0;
-        content!.style.removeProperty('--hero-copy-offset');
-        return;
-      }
-      scheduleUpdate();
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
     reducedMotion.addEventListener('change', scheduleUpdate);
   }
