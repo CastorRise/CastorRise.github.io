@@ -1,0 +1,16 @@
+---
+import { messages, type Locale } from '../i18n';
+import { imageUploadDates, type ImageFolder } from '../data/image-upload-dates';
+
+interface Props {
+  folder: ImageFolder;
+  stem: string;
+  name: string;
+  locale: Locale;
+}
+const { folder, stem, name, locale } = Astro.props;
+const date = imageUploadDates[folder][stem];
+const displayDate = date?.split('-').map(Number).join('.');
+---
+
+<span class="image-filename">{date && <><time datetime={date}>{messages[locale].uploadedOn}{displayDate}</time>{' '}</>}{name}</span>

@@ -23,7 +23,7 @@ Place your own images in `public/images/`. The home hero automatically reads eve
 
 Edit work categories and project details in `src/data/site.ts`. The Notes page is a small placeholder; it can later be expanded with Astro Content Collections and Markdown content.
 
-Optional gallery descriptions live in `src/data/image-descriptions.ts`, grouped by category and image filename without the extension. Empty or missing entries leave the lower-left caption blank. Strings are shared across languages; locale objects support separate translations. See the image guide for examples.
+Optional gallery descriptions live in `src/data/image-descriptions.ts`, grouped by category and image filename without the extension. Edit Simplified Chinese only; ask Codex to translate into English, Traditional Chinese (Taiwan), and Japanese before publishing. AI translations are maintained separately in `src/data/image-description-translations.ts` and tied to the exact source text. Empty or missing entries leave the lower-left caption blank. Upload dates live in `src/data/image-upload-dates.ts`. See the image guide for examples.
 
 The About page includes a changelog. Edit `src/data/changelog.ts` to add a date (`YYYY-MM-DD`) and a title and change list for all four languages. Entries are displayed with the latest date first. Rebuild and deploy to publish updates.
 

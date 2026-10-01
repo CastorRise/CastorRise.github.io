@@ -1,14 +1,12 @@
 import type { Locale } from '../i18n';
 import type { Category } from './site';
-
-type ImageDescription = string | Partial<Record<Locale, string>>;
+import { imageDescriptionTranslations } from './image-description-translations';
 
 // 图片简介按模块、文件名填写，文件名不含扩展名。空字符串或没有条目时，左下角留空。
 // 例如：'photo-02': '傍晚的街道，记录城市里的片刻。',
-// 直接填写字符串时，四种语言共用这一段文字。
-// 分别翻译可写：'photo-02': { zh: '中文简介', en: 'English description', 'zh-tw': '繁體簡介', ja: '日本語の紹介' },
-// 翻译未填写时使用 zh；某个语言明确填写 '' 时，该语言留空。
-export const imageDescriptions: Record<Category['slug'], Record<string, ImageDescription>> = {
+// 这里只填写简体中文。填好后让 Codex 在发布前补译英文、繁体中文（台湾）和日文。
+// 译文保存在 image-description-translations.ts；尚未补译时各语言暂时显示中文原文。
+export const imageDescriptions: Record<Category['slug'], Record<string, string>> = {
   photography: {
     'photo-01': '',
     'photo-02': '',
@@ -45,7 +43,8 @@ export const imageDescriptions: Record<Category['slug'], Record<string, ImageDes
 };
 
 export function getImageDescription(category: Category['slug'], stem: string, locale: Locale): string {
-  const entry = imageDescriptions[category][stem];
-  const description = typeof entry === 'string' ? entry : entry?.[locale] ?? entry?.zh ?? '';
-  return description.trim();
+  const description = imageDescriptions[category][stem]?.trim() ?? '';
+  if (!description || locale === 'zh') return description;
+  const translation = imageDescriptionTranslations[category][stem];
+  return translation?.source === description ? translation[locale].trim() : description;
 }

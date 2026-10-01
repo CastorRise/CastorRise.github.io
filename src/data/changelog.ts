@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-10-01',
     content: {
+      zh: { title: '图片上传日期与简介译文', changes: ['图片右下角显示上传日期与文件名。', '简介只需填写简体中文，其余三种语言的 AI 译文分开维护。'] },
+      'zh-tw': { title: '圖片上傳日期與簡介譯文', changes: ['圖片右下角顯示上傳日期與檔名。', '簡介只需填寫簡體中文，其餘三種語言的 AI 譯文分開維護。'] },
+      en: { title: 'Image upload dates and translated descriptions', changes: ['Upload dates are displayed before filenames beneath each image.', 'Descriptions are authored in Simplified Chinese, with AI translations maintained separately for the other three languages.'] },
+      ja: { title: '画像のアップロード日と紹介文の翻訳', changes: ['画像の右下にアップロード日とファイル名を表示。', '紹介文は簡体字中国語で入力し、ほかの 3 言語の AI 翻訳は別に管理。'] },
+    },
+  },
+  {
+    date: '2026-10-01',
+    content: {
       zh: { title: '作品图片简介', changes: ['摄影、已发布插画和气象图片支持自定义简介，按文件名填写；没有简介时左下角留空。'] },
       'zh-tw': { title: '作品圖片簡介', changes: ['攝影、已發布插畫與氣象圖片支援自訂簡介，依檔名填寫；沒有簡介時左下角留空。'] },
       en: { title: 'Image descriptions', changes: ['Photography, published illustrations and weather images support optional descriptions keyed by filename; the lower-left caption stays blank when none is provided.'] },

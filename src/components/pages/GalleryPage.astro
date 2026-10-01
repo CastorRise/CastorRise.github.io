@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ScrollImage from '../ScrollImage.astro';
+import ImageCaptionMeta from '../ImageCaptionMeta.astro';
 import { categories } from '../../data/site';
 import { getGalleryImages, gallerySizes, coverSizes } from '../../lib/images';
 import { messages, localizedPath, type Locale } from '../../i18n';
@@ -42,7 +43,7 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
               <ScrollImage {image} sizes={gallerySizes} alt={`${copy.upcomingWork} ${index + 1}`} />
               <figcaption>
                 {illustrationReleaseDates[image.stem] ? <time datetime={illustrationReleaseDates[image.stem]}>{illustrationReleaseDates[image.stem].replaceAll('-', '.')}</time> : <span>{copy.releaseDatePending}</span>}
-                <span>{image.name}</span>
+                <ImageCaptionMeta folder="illustration/coming-soon" stem={image.stem} name={image.name} {locale} />
               </figcaption>
             </figure>
           )) : (
@@ -57,7 +58,7 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
         {orderedImages.map((image, index) => (
           <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]}>
             <ScrollImage {image} sizes={isWideImage(image) ? coverSizes : gallerySizes} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} />
-            <figcaption><span class="image-description">{image.description}</span><span class="image-filename">{image.name}</span></figcaption>
+            <figcaption><span class="image-description">{image.description}</span><ImageCaptionMeta folder={category.slug} stem={image.stem} name={image.name} {locale} /></figcaption>
           </figure>
         ))}
       </div>
