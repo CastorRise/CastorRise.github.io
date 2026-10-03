@@ -9,10 +9,10 @@ export const changelog: Update[] = [
   {
     date: '2026-10-03',
     content: {
-      zh: { title: '项目模块展示调整', changes: ['首页项目模块改为单张 16:9 封面，点击后查看全部项目。', '项目页封面统一为 16:9，封面放大仅在悬停图片时触发。'] },
-      'zh-tw': { title: '專案區塊顯示調整', changes: ['首頁專案區塊改為單張 16:9 封面，點擊後查看所有專案。', '專案頁封面統一為 16:9，封面放大僅在游標停留於圖片時觸發。'] },
-      en: { title: 'Project section layout', changes: ['The home page now shows one 16:9 project cover that opens the full project list.', 'Project page covers use a 16:9 ratio. Cover zoom is triggered only when hovering over the image.'] },
-      ja: { title: 'プロジェクト欄の表示調整', changes: ['ホームには 16:9 の表紙を 1 枚表示し、クリックすると全プロジェクトを見られるように変更。', 'プロジェクトページの表紙を 16:9 に統一。表紙の拡大は画像にカーソルを合わせたときのみ適用。'] },
+      zh: { title: '项目模块展示调整', changes: ['首页只展示一个项目，采用 16:9 封面并保留右侧简介；点击后查看全部项目。', '项目页封面统一为 16:9，首页封面放大仅在悬停图片时触发。'] },
+      'zh-tw': { title: '專案區塊顯示調整', changes: ['首頁只顯示一個專案，採用 16:9 封面並保留右側簡介；點擊後查看所有專案。', '專案頁封面統一為 16:9，首頁封面放大僅在游標停留於圖片時觸發。'] },
+      en: { title: 'Project section layout', changes: ['The home page shows one project with a 16:9 cover and a short introduction on the right; clicking opens the full project list.', 'Project page covers use a 16:9 ratio. Home page cover zoom is triggered only when hovering over the image.'] },
+      ja: { title: 'プロジェクト欄の表示調整', changes: ['ホームにはプロジェクトを 1 件表示。16:9 の表紙と右側の紹介文を残し、クリックすると全プロジェクトを見られるように変更。', 'プロジェクトページの表紙を 16:9 に統一。ホームの表紙の拡大は画像にカーソルを合わせたときのみ適用。'] },
     },
   },
   {

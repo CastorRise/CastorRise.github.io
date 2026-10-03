@@ -140,9 +140,15 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .caption-arrow { color: var(--muted); font-size: 19px; font-weight: 300; }
 
 .projects-section { padding-bottom: clamp(112px, 12vw, 190px); }
+.feature-project { display: grid; grid-template-columns: minmax(0, 1.52fr) minmax(0, .78fr); align-items: center; background: var(--surface); }
+.feature-project-image { aspect-ratio: 16 / 9; overflow: hidden; }
+.feature-project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .42s ease; }
+.feature-project-image img:hover { transform: scale(1.03); }
+.feature-project-copy { display: flex; flex-direction: column; gap: 30px; padding: clamp(28px, 4vw, 58px); }
+.feature-project-copy h3 { margin: 0 0 22px; font-size: clamp(30px, 3vw, 49px); font-weight: 400; letter-spacing: .015em; line-height: 1.35; overflow-wrap: anywhere; }
 .image-placeholder-project { background: #d8d9d2; color: #434d45; }
 :root[data-theme="dark"] .image-placeholder-project { background: #394039; color: #c2cec0; }
-.project-entry-copy p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.feature-project-copy p, .project-entry-copy p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.85; }
 .project-link { width: fit-content; display: flex; align-items: center; gap: 25px; padding-bottom: 9px; border-bottom: 1px solid currentColor; font-size: 12px; }
 .project-link span { font-size: 17px; }
 .home-closing { min-height: 450px; padding: 90px 24px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; background: var(--surface); }
@@ -231,6 +237,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .desktop-nav { gap: 20px; }
   .theme-toggle { padding-left: 18px; }
   .project-entry { grid-template-columns: 1.2fr .8fr; }
+  .feature-project { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
 }
 
 @media (max-width: 700px) {
@@ -254,9 +261,11 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .section { padding-top: 100px; }
   .section-heading { align-items: start; flex-direction: column; gap: 24px; margin-bottom: 34px; }
   .work-card-media { aspect-ratio: 1 / 1; }
-  .work-card-media[data-category="projects"] { aspect-ratio: 16 / 9; }
   .work-card-caption { margin-bottom: 22px; }
   .projects-section { padding-top: 48px; padding-bottom: 100px; }
+  .feature-project { display: block; }
+  .feature-project-copy { padding: 27px; }
+  .feature-project-copy h3 { font-size: 34px; }
   .home-closing { min-height: 330px; }
   .page-shell { padding-top: 68px; padding-bottom: 100px; }
   .page-intro { padding: 95px 0 70px; }
