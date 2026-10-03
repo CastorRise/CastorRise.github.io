@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-10-03',
     content: {
+      zh: { title: '项目封面融合与自动更新', changes: ['首页项目封面稍微放大，与简介背景通过模糊渐变衔接。', '首页按 GitHub 最近代码更新时间自动选择工程，每次发布与每天定时同步；项目页收录所有符合条件的公开工程。'] },
+      'zh-tw': { title: '專案封面融合與自動更新', changes: ['首頁專案封面稍微放大，以模糊漸層銜接簡介背景。', '首頁依 GitHub 最近程式碼更新時間自動選擇專案，每次發布與每天定時同步；專案頁收錄所有符合條件的公開專案。'] },
+      en: { title: 'Blended project cover and automatic updates', changes: ['The home project cover is slightly enlarged and blends into the introduction background with a soft blur and gradient.', 'The home card selects the most recently pushed GitHub project. Metadata syncs on every build and daily; the project page lists all eligible public projects.'] },
+      ja: { title: 'プロジェクト表紙の境界と自動更新', changes: ['ホームの表紙を少し拡大し、ぼかしとグラデーションで紹介文の背景へ自然につなげました。', 'GitHub で最後にコードが更新されたプロジェクトをホームに自動表示。公開時と毎日定期的に同期し、対象となる公開プロジェクトを一覧に掲載。'] },
+    },
+  },
+  {
+    date: '2026-10-03',
+    content: {
       zh: { title: '作品页底部导航调整', changes: ['“继续探索”返回首页。', '最后一组作品显示“已经是最后一页了”，点击返回首页。'] },
       'zh-tw': { title: '作品頁底部導覽調整', changes: ['「繼續探索」返回首頁。', '最後一組作品顯示「已經是最後一頁了」，點擊返回首頁。'] },
       en: { title: 'Collection footer navigation', changes: ['“Continue exploring” returns to the home page.', 'The final collection displays “This is the last page”, which links back to home.'] },

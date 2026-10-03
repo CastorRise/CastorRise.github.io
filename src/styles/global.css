@@ -64,7 +64,7 @@ img { display: block; max-width: 100%; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .language-picker { position: relative; }
 .language-toggle { display: flex; align-items: center; gap: 16px; min-height: 44px; padding: 6px 4px; border: 0; background: transparent; color: inherit; font: inherit; font-size: 11px; white-space: nowrap; cursor: pointer; }
-.language-toggle svg { width: 14px; height: 14px; transition: transform .24s ease; }
+.language-toggle svg, .history-chevron { width: 14px; height: 14px; flex-shrink: 0; transition: transform .24s ease; }
 .language-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 .language-options { position: absolute; z-index: 2; top: calc(100% + 8px); right: 0; min-width: 172px; list-style: none; margin: 0; padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); box-shadow: 0 12px 36px rgba(0, 0, 0, .1); opacity: 1; visibility: visible; transform: translateY(0); transition: opacity .24s ease, transform .24s ease, visibility 0s; }
 .language-options[hidden] { display: block; opacity: 0; visibility: hidden; transform: translateY(-8px); pointer-events: none; transition: opacity .24s ease, transform .24s ease, visibility 0s .24s; }
@@ -141,9 +141,13 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 
 .projects-section { padding-bottom: clamp(112px, 12vw, 190px); }
 .feature-project { display: grid; grid-template-columns: minmax(0, 1.52fr) minmax(0, .78fr); align-items: center; background: var(--surface); }
-.feature-project-image { aspect-ratio: 16 / 9; overflow: hidden; }
-.feature-project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .42s ease; }
-.feature-project-image img:hover { transform: scale(1.03); }
+.feature-project-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+.feature-project-image img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform .42s ease; }
+.feature-project-image img:hover { transform: scale(1.09); }
+.feature-project-image::after { content: ''; position: absolute; inset: 0 -1px 0 auto; width: clamp(100px, 14vw, 220px); pointer-events: none; -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); background: linear-gradient(to right, transparent, var(--surface) 94%); mask-image: linear-gradient(to right, transparent, #000 45%); -webkit-mask-image: linear-gradient(to right, transparent, #000 45%); }
+@supports not (backdrop-filter: blur(18px)) {
+  .feature-project-image::after { -webkit-backdrop-filter: blur(18px); }
+}
 .feature-project-copy { display: flex; flex-direction: column; gap: 30px; padding: clamp(28px, 4vw, 58px); }
 .feature-project-copy h3 { margin: 0 0 22px; font-size: clamp(30px, 3vw, 49px); font-weight: 400; letter-spacing: .015em; line-height: 1.35; overflow-wrap: anywhere; }
 .image-placeholder-project { background: #d8d9d2; color: #434d45; }
@@ -219,7 +223,6 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .changelog-history summary::-webkit-details-marker { display: none; }
 .changelog-history summary:hover { color: var(--text); }
 .changelog-history:not([open]) > .changelog-list { display: none; }
-.history-chevron { display: inline-block; transition: transform .2s ease; }
 .history-hide, .changelog-history[open] .history-show { display: none; }
 .changelog-history[open] .history-hide { display: inline; }
 .changelog-history[open] .history-chevron { transform: rotate(180deg); }
@@ -264,6 +267,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
   .work-card-caption { margin-bottom: 22px; }
   .projects-section { padding-top: 48px; padding-bottom: 100px; }
   .feature-project { display: block; }
+  .feature-project-image::after { inset: auto 0 -1px; width: auto; height: 64px; background: linear-gradient(to bottom, transparent, var(--surface) 94%); mask-image: linear-gradient(to bottom, transparent, #000 45%); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%); }
   .feature-project-copy { padding: 27px; }
   .feature-project-copy h3 { font-size: 34px; }
   .home-closing { min-height: 330px; }

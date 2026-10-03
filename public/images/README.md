@@ -60,7 +60,9 @@ photography: {
 
 Nimby-finance-tool 的项目封面使用 `projects/nimby.png`，也支持上面列出的其他扩展名。项目资料在 `src/data/site.ts` 中修改。
 
-课程表助手 `Class-schedule-to-Calendar` 的封面使用 `projects/class-schedule` 加支持的图片扩展名；没有图片时展示 PDF → ICS 文字封面。首页与项目页共用这些项目资料，课程表助手排在 NIMBY 下方。
+课程表助手 `Class-schedule-to-Calendar` 的封面使用 `projects/class-schedule` 加支持的图片扩展名；没有图片时展示 PDF → ICS 文字封面。首页自动展示最近更新代码的公开工程，项目页按同样的顺序展示全部工程。网站每天自动同步，也会在每次发布时同步 GitHub 信息。
+
+新工程的封面放在 `projects/` 内，文件名默认使用 GitHub 仓库名称的小写形式，例如 `spectramark.png`。也可以在 `src/data/site.ts` 配置 `imageStem` 和四种语言的简介。没有封面时显示项目名称占位图。首页封面保持 16:9，图片与右侧简介背景做模糊渐变融合；手机端在图片底部融合。
 
 本地预览运行 `npm run dev`；图片尺寸在构建时读取，增加或替换图片后需要重新构建。还没有图片时页面正常显示占位背景。
 

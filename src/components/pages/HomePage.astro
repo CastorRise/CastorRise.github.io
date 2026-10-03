@@ -3,7 +3,8 @@ import { messages, localizedPath, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../WorkCard.astro';
 import ScrollImage from '../ScrollImage.astro';
-import { categories, projects } from '../../data/site';
+import { categories } from '../../data/site';
+import { getProjects } from '../../lib/projects';
 import { findImage, createPreview, projectSizes } from '../../lib/images';
 import type { ImageMetadata } from 'astro';
 
@@ -18,7 +19,7 @@ const heroImages = await Promise.all(Object.entries(heroSources)
   .map(([path, image]) => createPreview(image, path.split('/').pop()!)));
 const heroPanels = heroImages.length ? heroImages.slice(0, 3) : [null, null, null];
 const workImages = await Promise.all(categories.map((category) => findImage(category.slug, category.imageStem)));
-const featuredProject = projects[0];
+const featuredProject = getProjects()[0];
 const projectImage = await findImage('projects', featuredProject.imageStem);
 ---
 

@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "sync:projects": "node scripts/sync-projects.mjs",
+    "prebuild": "npm run sync:projects",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"

@@ -2,12 +2,13 @@
 import { messages, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ScrollImage from '../ScrollImage.astro';
-import { projects } from '../../data/site';
+import { getProjects } from '../../lib/projects';
 import { findImage, projectSizes } from '../../lib/images';
 
 interface Props { locale?: Locale; }
 const { locale = 'en' } = Astro.props;
 const copy = messages[locale];
+const projects = getProjects();
 
 const projectImages = await Promise.all(projects.map((project) => findImage('projects', project.imageStem)));
 ---

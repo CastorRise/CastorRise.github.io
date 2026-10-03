@@ -1,6 +1,7 @@
 ---
 import { messages, type Locale } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Chevron from '../Chevron.astro';
 import ScrollImage from '../ScrollImage.astro';
 import { findImage, gallerySizes } from '../../lib/images';
 import { changelog } from '../../data/changelog';
@@ -41,7 +42,7 @@ const visibleUpdateCount = 3;
         <summary>
           <span class="history-show">{copy.changelogOlder}</span>
           <span class="history-hide">{copy.changelogLess}</span>
-          <span class="history-chevron" aria-hidden="true">⌄</span>
+          <Chevron class="history-chevron" />
         </summary>
         <ol class="changelog-list" role="list" start={visibleUpdateCount + 1}>
           {updates.slice(visibleUpdateCount).map((update) => (

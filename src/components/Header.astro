@@ -1,5 +1,6 @@
 ---
 import { messages, locales, languageNames, localizedPath, type Locale } from '../i18n';
+import Chevron from './Chevron.astro';
 interface Props { home?: boolean; currentPath?: string; locale?: Locale; }
 const { home = false, currentPath = '/', locale = 'en' } = Astro.props;
 const copy = messages[locale];
@@ -23,7 +24,7 @@ const links = [
     <div class="header-actions">
       <div class="language-picker" data-language-picker>
         <button class="language-toggle" type="button" aria-label={`${copy.language}: ${languageNames[locale]}`} aria-expanded="false" aria-controls="language-options" data-language-toggle>
-          <span>{languageNames[locale]}</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="m3 6 5 5 5-5" /></svg>
+          <span>{languageNames[locale]}</span><Chevron />
         </button>
         <ul class="language-options" id="language-options" aria-label={copy.language} aria-hidden="true" data-language-options hidden inert>
           {locales.map((language) => <li><a href={localizedPath(language, currentPath)} data-locale={language} lang={language} aria-current={language === locale ? 'true' : undefined}>{languageNames[language]}</a></li>)}
