@@ -35,8 +35,8 @@ export const imageDescriptions: Record<Category['slug'], Record<string, string>>
   weather: {
     'weather-01': '日落下的郑州城和远处的嵩山，拍摄于河南省郑州市',
     'weather-02': '冬季阴云、好似末日孤岛，拍摄于河南省郑州市',
-    'weather-03': '盛夏激烈强对流与局部降水，拍摄于河南省郑州市',
-    'weather-04': '初夏旺盛水汽爆发的大片浓积云，拍摄于湖南省长沙市-万家丽',
+    'weather-03': '初夏旺盛水汽爆发的大片浓积云，拍摄于湖南省长沙市-万家丽',
+    'weather-04': '盛夏激烈强对流与局部降水，拍摄于河南省郑州市',
     'weather-05': '积雨云云砧与乳状云，拍摄于河南省郑州市',
     'weather-06': '',
   },
