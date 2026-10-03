@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-10-03',
     content: {
+      zh: { title: '作品简介与多语言译文', changes: ['为 26 张摄影、插画和气象作品补充简介，保留作者填写的原文。', '逐条补译英文、繁体中文（台湾）和日文；未填写简介的图片继续留空。'] },
+      'zh-tw': { title: '作品簡介與多語言譯文', changes: ['為 26 張攝影、插畫與氣象作品補上簡介，保留作者填寫的原文。', '逐條翻譯為英文、繁體中文（台灣）與日文；未填寫簡介的圖片維持空白。'] },
+      en: { title: 'Image descriptions in four languages', changes: ['Added descriptions to 26 photography, illustration and weather images, preserving the original captions.', 'Each caption now has English, Traditional Chinese (Taiwan) and Japanese translations. Images without descriptions retain a blank caption.'] },
+      ja: { title: '作品の紹介文と多言語翻訳', changes: ['写真・イラスト・気象の 26 作品に紹介文を追加し、作者が入力した原文を保持。', '各紹介文に英語・繁体字中国語（台湾）・日本語の翻訳を追加。未入力の画像は引き続き空欄で表示。'] },
+    },
+  },
+  {
+    date: '2026-10-03',
+    content: {
       zh: { title: '项目封面融合与自动更新', changes: ['首页项目封面稍微放大，与简介背景通过模糊渐变衔接。', '首页按 GitHub 最近代码更新时间自动选择工程，每次发布与每天定时同步；项目页收录所有符合条件的公开工程。'] },
       'zh-tw': { title: '專案封面融合與自動更新', changes: ['首頁專案封面稍微放大，以模糊漸層銜接簡介背景。', '首頁依 GitHub 最近程式碼更新時間自動選擇專案，每次發布與每天定時同步；專案頁收錄所有符合條件的公開專案。'] },
       en: { title: 'Blended project cover and automatic updates', changes: ['The home project cover is slightly enlarged and blends into the introduction background with a soft blur and gradient.', 'The home card selects the most recently pushed GitHub project. Metadata syncs on every build and daily; the project page lists all eligible public projects.'] },
