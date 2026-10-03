@@ -7,6 +7,15 @@ interface Update {
 
 export const changelog: Update[] = [
   {
+    date: '2026-10-03',
+    content: {
+      zh: { title: '项目模块展示调整', changes: ['首页项目模块改为单张 16:9 封面，点击后查看全部项目。', '项目页封面统一为 16:9，封面放大仅在悬停图片时触发。'] },
+      'zh-tw': { title: '專案區塊顯示調整', changes: ['首頁專案區塊改為單張 16:9 封面，點擊後查看所有專案。', '專案頁封面統一為 16:9，封面放大僅在游標停留於圖片時觸發。'] },
+      en: { title: 'Project section layout', changes: ['The home page now shows one 16:9 project cover that opens the full project list.', 'Project page covers use a 16:9 ratio. Cover zoom is triggered only when hovering over the image.'] },
+      ja: { title: 'プロジェクト欄の表示調整', changes: ['ホームには 16:9 の表紙を 1 枚表示し、クリックすると全プロジェクトを見られるように変更。', 'プロジェクトページの表紙を 16:9 に統一。表紙の拡大は画像にカーソルを合わせたときのみ適用。'] },
+    },
+  },
+  {
     date: '2026-10-01',
     content: {
       zh: { title: '图片上传日期与简介译文', changes: ['图片右下角显示上传日期与文件名。', '简介只需填写简体中文，其余三种语言的 AI 译文分开维护。'] },
