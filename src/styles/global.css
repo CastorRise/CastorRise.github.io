@@ -128,7 +128,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .work-card-media { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--surface); }
 .work-card-media[data-category="illustration"] { aspect-ratio: 1 / 1; }
 .work-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .42s ease; }
-.work-card:hover .work-card-media img { transform: scale(1.03); }
+.work-card-media img:hover { transform: scale(1.03); }
 .image-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(20px, 3vw, 48px); background: var(--surface); color: var(--muted); }
 .image-placeholder span { font-family: inherit; font-size: clamp(27px, 3.4vw, 54px); font-style: normal; letter-spacing: .015em; }
 .image-placeholder small { align-self: end; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
@@ -143,7 +143,7 @@ html:lang(zh) .home-closing p, html:lang(ja) .home-closing p { font-family: inhe
 .feature-project { display: grid; grid-template-columns: minmax(0, 1.52fr) minmax(260px, .78fr); min-height: 460px; background: var(--surface); }
 .feature-project-image { min-height: 460px; overflow: hidden; }
 .feature-project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .42s ease; }
-.feature-project:hover .feature-project-image img { transform: scale(1.03); }
+.feature-project-image img:hover { transform: scale(1.03); }
 .image-placeholder-project { background: #d8d9d2; color: #434d45; }
 :root[data-theme="dark"] .image-placeholder-project { background: #394039; color: #c2cec0; }
 .feature-project-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 30px; padding: clamp(28px, 4vw, 58px); }
