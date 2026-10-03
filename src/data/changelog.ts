@@ -9,6 +9,15 @@ export const changelog: Update[] = [
   {
     date: '2026-10-03',
     content: {
+      zh: { title: '作品页底部导航调整', changes: ['“继续探索”返回首页。', '最后一组作品显示“已经是最后一页了”，点击返回首页。'] },
+      'zh-tw': { title: '作品頁底部導覽調整', changes: ['「繼續探索」返回首頁。', '最後一組作品顯示「已經是最後一頁了」，點擊返回首頁。'] },
+      en: { title: 'Collection footer navigation', changes: ['“Continue exploring” returns to the home page.', 'The final collection displays “This is the last page”, which links back to home.'] },
+      ja: { title: '作品集の下部ナビゲーションを調整', changes: ['「引き続き見る」からホームに戻れるように変更。', '最後の作品集では「これが最後のページです」と表示し、クリックするとホームに戻るように変更。'] },
+    },
+  },
+  {
+    date: '2026-10-03',
+    content: {
       zh: { title: '项目模块展示调整', changes: ['首页只展示一个项目，采用 16:9 封面并保留右侧简介；点击后查看全部项目。', '项目页封面统一为 16:9，首页封面放大仅在悬停图片时触发。'] },
       'zh-tw': { title: '專案區塊顯示調整', changes: ['首頁只顯示一個專案，採用 16:9 封面並保留右側簡介；點擊後查看所有專案。', '專案頁封面統一為 16:9，首頁封面放大僅在游標停留於圖片時觸發。'] },
       en: { title: 'Project section layout', changes: ['The home page shows one project with a 16:9 cover and a short introduction on the right; clicking opens the full project list.', 'Project page covers use a 16:9 ratio. Home page cover zoom is triggered only when hovering over the image.'] },

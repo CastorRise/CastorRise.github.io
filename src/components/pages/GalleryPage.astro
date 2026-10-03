@@ -15,6 +15,7 @@ const { locale = 'en', category } = Astro.props;
 const copy = messages[locale];
 const categoryCopy = copy.categories[category.slug];
 const url = (path: string) => localizedPath(locale, path);
+const nextCategory = categories[categories.findIndex((item) => item.slug === category.slug) + 1];
 const images = await getGalleryImages(category.slug);
 const isWideImage = (image: (typeof images)[number]) =>
   (category.slug === 'photography' || category.slug === 'weather') && image.aspectRatio > 16 / 9;
@@ -65,6 +66,9 @@ const upcomingImages = category.slug === 'illustration' ? await getGalleryImages
     ) : (
       <div class="gallery-empty"><div class="gallery-empty-mark" aria-hidden="true">{categoryCopy.title.slice(0, 1)}</div><p>{categoryCopy.title}</p><span>{copy.worksSoon}</span></div>
     )}
-    <div class="next-collection"><a class="eyebrow" href={url('/works')}>{copy.continueExploring}</a><a href={url(`/works/${categories[(categories.findIndex((item) => item.slug === category.slug) + 1) % categories.length].slug}`)}>{copy.nextCollection} <span aria-hidden="true">↗</span></a></div>
+    <div class="next-collection">
+      <a class="eyebrow" href={url('/')}>{copy.continueExploring}</a>
+      <a href={url(nextCategory ? `/works/${nextCategory.slug}` : '/')}>{nextCategory ? copy.nextCollection : copy.lastCollection} <span aria-hidden="true">↗</span></a>
+    </div>
   </div>
 </BaseLayout>
