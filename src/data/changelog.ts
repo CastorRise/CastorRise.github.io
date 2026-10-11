@@ -9,10 +9,10 @@ export const changelog: Update[] = [
   {
     date: '2026-10-11',
     content: {
-      zh: { title: 'Coming Soon 定时发布', changes: ['预告插画在设定日期的北京时间 00:00 自动进入正式作品列表。', '页面到点或返回前台时自动检查，原图片、简介与上传日期继续沿用；未设日期的作品保持预告。'] },
-      'zh-tw': { title: 'Coming Soon 定時發布', changes: ['預告插畫會在設定日期的北京時間 00:00 自動加入正式作品列表。', '頁面會在到期或回到前景時自動檢查，沿用原圖、簡介與上傳日期；未設定日期的作品維持預告。'] },
-      en: { title: 'Scheduled Coming Soon releases', changes: ['Upcoming illustrations join the published collection automatically at midnight Asia/Shanghai on the configured date.', 'Open pages check at the deadline and when returning to the foreground, preserving images, descriptions and upload dates. Undated works stay upcoming.'] },
-      ja: { title: 'Coming Soon の予約公開', changes: ['予告イラストは、設定した日付の北京時間 00:00 に公開済み作品へ自動で移動。', '指定時刻やページに戻った際に確認し、画像・紹介文・アップロード日を引き継ぎます。日付が未設定の作品は予告のまま表示。'] },
+      zh: { title: '正式插画定时解除隐藏', changes: ['正式插画可单独设定隐藏截止日期，按北京时间当天 00:00 自动显示。', 'Coming Soon 保留独立预告图，预告日期只用于展示，不会把预告图变成正式作品。'] },
+      'zh-tw': { title: '正式插畫定時解除隱藏', changes: ['正式插畫可各自設定隱藏截止日期，在北京時間當天 00:00 自動顯示。', 'Coming Soon 保留獨立預告圖，預告日期僅供顯示，不會將預告圖轉為正式作品。'] },
+      en: { title: 'Scheduled visibility for finished illustrations', changes: ['Finished illustrations can stay hidden until midnight Asia/Shanghai on a chosen date.', 'Coming Soon keeps its separate preview images. Preview dates are display labels and never turn previews into finished works.'] },
+      ja: { title: '完成イラストの非表示を指定日に解除', changes: ['完成イラストは、指定した日の北京時間 00:00 まで非表示にし、その時刻に自動で表示できます。', 'Coming Soon の予告画像は独立したまま表示します。予告の日付は表示用で、予告画像が完成作品に切り替わることはありません。'] },
     },
   },
   {

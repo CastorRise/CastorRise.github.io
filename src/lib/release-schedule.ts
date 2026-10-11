@@ -11,9 +11,8 @@ export function isReleaseDue(date: string | undefined, now = Date.now()): boolea
   return time !== null && time <= now;
 }
 
-export function partitionReleases<T extends { stem: string }>(images: T[], dates: Record<string, string>, now = Date.now()) {
-  const released = images.filter((image) => isReleaseDue(dates[image.stem], now));
-  const upcoming = images.filter((image) => !isReleaseDue(dates[image.stem], now));
-  released.sort((a, b) => releaseTime(dates[b.stem])! - releaseTime(dates[a.stem])! || a.stem.localeCompare(b.stem, 'en', { numeric: true }));
-  return { released, upcoming };
+// Ordinary images are visible. A configured image stays hidden until its date;
+// an empty or invalid configured date keeps it hidden indefinitely.
+export function isImageVisible(stem: string, dates: Record<string, string>, now = Date.now()): boolean {
+  return !Object.hasOwn(dates, stem) || isReleaseDue(dates[stem], now);
 }

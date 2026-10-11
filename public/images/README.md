@@ -48,24 +48,26 @@ photography: {
 
 日期在 `src/data/image-upload-dates.ts` 中按模块、图片文件名填写，保存格式为 `YYYY-MM-DD`，展示时去掉月、日的前导零。现有图片使用首次加入仓库的提交日期（北京时间）。新图片发布时补上日期，图片重命名时一并移动日期条目。
 
-## 插画 Coming Soon
+## 插画 Coming Soon 与正式图片定时显示
 
-图片左下角显示计划发布日期。日期在 `src/data/releases.ts` 中按图片文件名（不含扩展名）填写，格式为 `YYYY-MM-DD`，网页显示为 `YYYY.MM.DD`。例如：
+Coming Soon 是独立的预告图，放在 `public/images/illustration/coming-soon/`。`src/data/releases.ts` 中的 `illustrationReleaseDates` 只控制预告图左下角显示的日期；预告图不会到期后移入正式作品，也不会充当正式图片。
+
+正式插画放在 `public/images/illustration/`。需要到指定日期自动解除隐藏时，在同一文件的 **`illustrationPublishDates`** 中填写正式图片的文件名（不含扩展名）：
 
 ```ts
-export const illustrationReleaseDates: Record<string, string> = {
-  'coming-soon-01': '2026-11-10',
-  'coming-soon-02': '', // 留空：继续预告，暂不自动发布
+export const illustrationPublishDates: Record<string, string> = {
+  'illustration-08': '2026-11-10', // 北京时间 2026 年 11 月 10 日 00:00 解除隐藏
+  'illustration-09': '',           // 一直隐藏，等你填日期
 };
 ```
 
-按北京时间指定日期的 **00:00** 自动发布。目前 `coming-soon-01` 会在 **2026 年 11 月 10 日 00:00** 转入正式作品。填写已经过去的日期，会在此次修改部署后立即进入正式列表。未填写、留空或格式无效时继续显示“发布日期待定”。在 GitHub 修改日期后，需要点击 Commit changes 保存，等待网站自动部署完成。
+只列出需要隐藏的正式图片。没有列在这里的图片正常显示；列出但日期留空或无效时保持隐藏。到期后图片在正式作品列表中按原顺序显示，不需要移动文件。图片的简介和上传日期仍在原来的配置文件中填写。
 
-即将发布的插画放在 `illustration/coming-soon/` 中，构建后会自动出现在插画页顶部的 Coming Soon 区域，并按文件名排序。支持 JPG、JPEG、PNG、WebP 和 AVIF，保留原图比例，按列上下接续排列。没有预告图片时会显示文字提示。
+例如，预告图为 `coming-soon-01.jpg`，实际作品为 `illustration-08.jpg`：前者继续留在 Coming Soon，后者在 `illustrationPublishDates` 配置日期后才会到期显示。两张图片互相独立。当前只保留原有预告图日期，没有把现有正式作品设为隐藏。
 
-到期后，图片自动从 Coming Soon 转入正式插画列表最前面，最新发布的排在前面。文件继续保留在 `illustration/coming-soon/`，**不需要移动、改名或在正式文件夹再放一份**。上传日期和文件名保持原样；正式发布后的简介可在 `src/data/image-descriptions.ts` 的 `illustration` 中按原文件名（如 `coming-soon-01`）填写，译文仍按原来的方式维护。
+在 GitHub 修改日期后点击 Commit changes 保存，等待自动部署完成。四种语言都按北京时间判断；页面打开着时到点自动显示，从后台返回时也会检查。未到期的作品不会加载预览图，也不会被用作首页或作品页封面。浏览器的到点切换使用设备时钟；网站每天北京时间 00:07 与 09:23 重建静态页面，关闭 JavaScript 时在重建部署后更新，GitHub 定时任务可能延后。
 
-四种语言使用同一个北京时间。页面打开着时会到点自动更新，从后台返回时也会检查。浏览器展示切换以设备时钟为准；静态页面在每次构建时也会按日期分组，网站每天北京时间 00:07 与 09:23 自动重建。GitHub 定时任务可能延后，关闭 JavaScript 的访客会在重建部署后看到更新。Coming Soon 图片沿用现有公开预览方式，这个定时功能控制作品归类，不限制通过图片链接访问。
+这里的隐藏指网站界面隐藏。图片文件放在公开仓库和 `public/` 中，原始链接仍可访问。
 
 作品页与封面也会生成上述多个尺寸的 WebP 预览，手机和分列作品页优先加载较小版本，保留原始比例与目录中的原文件。HEIC 图片需要先转换为 JPG、PNG 或 WebP；本次两张 HEIC 已转换为同名 JPG，原始 HEIC 仍保留，不会重复显示在作品页。
 

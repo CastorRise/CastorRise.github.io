@@ -2,6 +2,8 @@ import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { illustrationPublishDates } from '../data/releases';
+import { isImageVisible } from './release-schedule';
 
 const imageRoot = join(process.cwd(), 'public', 'images');
 const extensions = ['jpg', 'jpeg', 'webp', 'avif', 'png'];
@@ -45,6 +47,8 @@ async function describeImage(folder: string, filename: string): Promise<LocalIma
 }
 
 export async function findImage(folder: string, stem: string): Promise<LocalImage | null> {
+  // A hidden illustration must not appear as a home or Works category cover.
+  if (folder === 'illustration' && !isImageVisible(stem, illustrationPublishDates)) return null;
   let filenames: string[];
   try {
     filenames = await readdir(join(imageRoot, folder));

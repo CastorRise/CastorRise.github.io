@@ -2,14 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ScrollImage from '../ScrollImage.astro';
 import ImageCaptionMeta from '../ImageCaptionMeta.astro';
-import ScheduledIllustration from '../ScheduledIllustration.astro';
 import { categories } from '../../data/site';
 import { getGalleryImages, gallerySizes, coverSizes } from '../../lib/images';
 import { messages, localizedPath, type Locale } from '../../i18n';
 import type { Category } from '../../data/site';
-import { illustrationReleaseDates } from '../../data/releases';
+import { illustrationReleaseDates, illustrationPublishDates } from '../../data/releases';
 import { getImageDescription } from '../../data/image-descriptions';
-import { partitionReleases } from '../../lib/release-schedule';
+import { isImageVisible, releaseTime } from '../../lib/release-schedule';
 
 
 interface Props { locale?: Locale; category: Category; }
@@ -23,9 +22,9 @@ const isWideImage = (image: (typeof images)[number]) =>
   (category.slug === 'photography' || category.slug === 'weather') && image.aspectRatio > 16 / 9;
 const orderedImages = [...images.filter(isWideImage), ...images.filter((image) => !isWideImage(image))]
   .map((image) => ({ ...image, description: getImageDescription(category.slug, image.stem, locale) }));
-const scheduledImages = category.slug === 'illustration' ? await getGalleryImages('illustration/coming-soon') : [];
-const { released: releasedImages, upcoming: upcomingImages } = partitionReleases(scheduledImages, illustrationReleaseDates);
-const hasPublishedImages = images.length + releasedImages.length > 0;
+const upcomingImages = category.slug === 'illustration' ? await getGalleryImages('illustration/coming-soon') : [];
+const isVisible = (stem: string) => category.slug !== 'illustration' || isImageVisible(stem, illustrationPublishDates);
+const hasPublishedImages = images.some((image) => isVisible(image.stem));
 ---
 
 <BaseLayout locale={locale} title={`${categoryCopy.title} — CastorRise`} description={`${categoryCopy.description} — CastorRise.`}>
@@ -43,7 +42,15 @@ const hasPublishedImages = images.length + releasedImages.length > 0;
           <p>{copy.comingSoonDescription}</p>
         </div>
         <div class="gallery upcoming-grid" data-category="illustration" data-upcoming-illustrations>
-          {upcomingImages.map((image) => <ScheduledIllustration {image} {locale} released={false} />)}
+          {upcomingImages.map((image) => (
+            <figure class="gallery-item">
+              <ScrollImage {image} sizes={gallerySizes} alt={`${copy.upcomingWork} — ${image.name}`} />
+              <figcaption>
+                {releaseTime(illustrationReleaseDates[image.stem]) !== null ? <time datetime={illustrationReleaseDates[image.stem]}>{illustrationReleaseDates[image.stem].replaceAll('-', '.')}</time> : <span>{copy.releaseDatePending}</span>}
+                <ImageCaptionMeta folder="illustration/coming-soon" stem={image.stem} name={image.name} {locale} />
+              </figcaption>
+            </figure>
+          ))}
           <div class="upcoming-placeholder" data-upcoming-empty hidden={upcomingImages.length > 0}><span>Coming Soon</span><p>{copy.upcomingWork}</p></div>
         </div>
       </section>
@@ -51,9 +58,10 @@ const hasPublishedImages = images.length + releasedImages.length > 0;
     {category.slug === 'illustration' && <div class="collection-heading"><h2>{copy.publishedWorks}</h2></div>}
     {(hasPublishedImages || category.slug === 'illustration') && (
       <div class="gallery" data-category={category.slug} data-published-illustrations={category.slug === 'illustration' ? '' : undefined} hidden={!hasPublishedImages} aria-label={`${categoryCopy.title} — ${copy.gallery}`}>
-        {releasedImages.map((image) => <ScheduledIllustration {image} {locale} released={true} />)}
         {orderedImages.map((image, index) => (
-          <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]}>
+          <figure class:list={['gallery-item', { 'gallery-item-wide': isWideImage(image) }]} hidden={!isVisible(image.stem)}
+            data-scheduled-release={category.slug === 'illustration' && Object.hasOwn(illustrationPublishDates, image.stem) ? image.stem : undefined}
+            data-release-date={category.slug === 'illustration' && releaseTime(illustrationPublishDates[image.stem]) !== null ? illustrationPublishDates[image.stem] : undefined}>
             <ScrollImage {image} sizes={isWideImage(image) ? coverSizes : gallerySizes} alt={`${categoryCopy.title} — ${copy.work} ${index + 1}`} />
             <figcaption><span class="image-description">{image.description}</span><ImageCaptionMeta folder={category.slug} stem={image.stem} name={image.name} {locale} /></figcaption>
           </figure>
@@ -71,29 +79,18 @@ const hasPublishedImages = images.length + releasedImages.length > 0;
 <script>
   import { isReleaseDue, releaseTime } from '../../lib/release-schedule';
 
-  const upcoming = document.querySelector<HTMLElement>('[data-upcoming-illustrations]');
   const published = document.querySelector<HTMLElement>('[data-published-illustrations]');
-  if (upcoming && published) {
+  if (published) {
     let timer: ReturnType<typeof setTimeout> | undefined;
     function updateReleases() {
       clearTimeout(timer);
       const now = Date.now();
-      const pending = Array.from(upcoming!.querySelectorAll<HTMLElement>('[data-scheduled-release]'));
+      const pending = Array.from(published!.querySelectorAll<HTMLElement>('[data-scheduled-release][hidden]'));
       const due = pending.filter((card) => isReleaseDue(card.dataset.releaseDate, now));
       if (due.length) {
-        for (const card of due) {
-          card.dataset.releaseState = 'released';
-          card.querySelector<HTMLElement>('[data-upcoming-caption]')!.hidden = true;
-          card.querySelector<HTMLElement>('[data-published-caption]')!.hidden = false;
-          for (const image of card.querySelectorAll('img')) image.alt = card.dataset.publishedAlt!;
-        }
-        const released = [...published!.querySelectorAll<HTMLElement>('[data-scheduled-release]'), ...due];
-        released.sort((a, b) => releaseTime(b.dataset.releaseDate)! - releaseTime(a.dataset.releaseDate)! || a.dataset.scheduledRelease!.localeCompare(b.dataset.scheduledRelease!, 'en', { numeric: true }));
-        // Move the existing figures, preserving loaded images and preventing duplicate works.
-        for (const card of released.reverse()) published!.prepend(card);
+        for (const card of due) card.hidden = false;
         published!.hidden = false;
         document.querySelector<HTMLElement>('[data-published-empty]')!.hidden = true;
-        upcoming!.querySelector<HTMLElement>('[data-upcoming-empty]')!.hidden = !!upcoming!.querySelector('[data-scheduled-release]');
         window.dispatchEvent(new Event('gallery:updated'));
       }
       const futureTimes = pending.map((card) => releaseTime(card.dataset.releaseDate)).filter((time): time is number => time !== null && time > now);
