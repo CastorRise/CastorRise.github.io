@@ -50,11 +50,22 @@ photography: {
 
 ## 插画 Coming Soon
 
-图片左下角显示计划发布日期。日期在 `src/data/releases.ts` 中按图片文件名（不含扩展名）填写，格式为 `YYYY-MM-DD`，网页显示为 `YYYY.MM.DD`；尚未填写的图片显示“发布日期待定”。目前 `coming-soon-01` 的发布日期为 `2026.11.10`。
+图片左下角显示计划发布日期。日期在 `src/data/releases.ts` 中按图片文件名（不含扩展名）填写，格式为 `YYYY-MM-DD`，网页显示为 `YYYY.MM.DD`。例如：
+
+```ts
+export const illustrationReleaseDates: Record<string, string> = {
+  'coming-soon-01': '2026-11-10',
+  'coming-soon-02': '', // 留空：继续预告，暂不自动发布
+};
+```
+
+按北京时间指定日期的 **00:00** 自动发布。目前 `coming-soon-01` 会在 **2026 年 11 月 10 日 00:00** 转入正式作品。填写已经过去的日期，会在此次修改部署后立即进入正式列表。未填写、留空或格式无效时继续显示“发布日期待定”。在 GitHub 修改日期后，需要点击 Commit changes 保存，等待网站自动部署完成。
 
 即将发布的插画放在 `illustration/coming-soon/` 中，构建后会自动出现在插画页顶部的 Coming Soon 区域，并按文件名排序。支持 JPG、JPEG、PNG、WebP 和 AVIF，保留原图比例，按列上下接续排列。没有预告图片时会显示文字提示。
 
-正式发布时，把图片从 `illustration/coming-soon/` 移到 `illustration/`，重新提交并推送。图片就会从预告区域移到已发布作品区域。所有语言版本共用图片；图片只有在提交、推送并完成网站构建后才会在线上显示。
+到期后，图片自动从 Coming Soon 转入正式插画列表最前面，最新发布的排在前面。文件继续保留在 `illustration/coming-soon/`，**不需要移动、改名或在正式文件夹再放一份**。上传日期和文件名保持原样；正式发布后的简介可在 `src/data/image-descriptions.ts` 的 `illustration` 中按原文件名（如 `coming-soon-01`）填写，译文仍按原来的方式维护。
+
+四种语言使用同一个北京时间。页面打开着时会到点自动更新，从后台返回时也会检查。浏览器展示切换以设备时钟为准；静态页面在每次构建时也会按日期分组，网站每天北京时间 00:07 与 09:23 自动重建。GitHub 定时任务可能延后，关闭 JavaScript 的访客会在重建部署后看到更新。Coming Soon 图片沿用现有公开预览方式，这个定时功能控制作品归类，不限制通过图片链接访问。
 
 作品页与封面也会生成上述多个尺寸的 WebP 预览，手机和分列作品页优先加载较小版本，保留原始比例与目录中的原文件。HEIC 图片需要先转换为 JPG、PNG 或 WebP；本次两张 HEIC 已转换为同名 JPG，原始 HEIC 仍保留，不会重复显示在作品页。
 

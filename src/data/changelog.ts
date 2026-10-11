@@ -7,6 +7,15 @@ interface Update {
 
 export const changelog: Update[] = [
   {
+    date: '2026-10-11',
+    content: {
+      zh: { title: 'Coming Soon 定时发布', changes: ['预告插画在设定日期的北京时间 00:00 自动进入正式作品列表。', '页面到点或返回前台时自动检查，原图片、简介与上传日期继续沿用；未设日期的作品保持预告。'] },
+      'zh-tw': { title: 'Coming Soon 定時發布', changes: ['預告插畫會在設定日期的北京時間 00:00 自動加入正式作品列表。', '頁面會在到期或回到前景時自動檢查，沿用原圖、簡介與上傳日期；未設定日期的作品維持預告。'] },
+      en: { title: 'Scheduled Coming Soon releases', changes: ['Upcoming illustrations join the published collection automatically at midnight Asia/Shanghai on the configured date.', 'Open pages check at the deadline and when returning to the foreground, preserving images, descriptions and upload dates. Undated works stay upcoming.'] },
+      ja: { title: 'Coming Soon の予約公開', changes: ['予告イラストは、設定した日付の北京時間 00:00 に公開済み作品へ自動で移動。', '指定時刻やページに戻った際に確認し、画像・紹介文・アップロード日を引き継ぎます。日付が未設定の作品は予告のまま表示。'] },
+    },
+  },
+  {
     date: '2026-10-03',
     content: {
       zh: { title: '作品简介与多语言译文', changes: ['为 26 张摄影、插画和气象作品补充简介，保留作者填写的原文。', '逐条补译英文、繁体中文（台湾）和日文；未填写简介的图片继续留空。'] },

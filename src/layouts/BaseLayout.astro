@@ -105,6 +105,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
         window.removeEventListener('scroll', scheduleCheck);
         window.removeEventListener('resize', scheduleCheck);
         window.removeEventListener('pageshow', scheduleCheck);
+        window.removeEventListener('gallery:updated', scheduleCheck);
         window.visualViewport?.removeEventListener('resize', scheduleCheck);
         document.removeEventListener('visibilitychange', scheduleCheck);
       }
@@ -121,6 +122,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       window.addEventListener('scroll', scheduleCheck, { passive: true });
       window.addEventListener('resize', scheduleCheck);
       window.addEventListener('pageshow', scheduleCheck);
+      window.addEventListener('gallery:updated', scheduleCheck);
       window.visualViewport?.addEventListener('resize', scheduleCheck);
       document.addEventListener('visibilitychange', scheduleCheck);
       scheduleCheck();
